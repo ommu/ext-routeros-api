@@ -23,6 +23,8 @@ class RouterosModule extends CWebModule
 		$this->setImport(array(
 			'routeros.models.*',
 			'routeros.components.*',
+			'routeros.components.extensions.*',
+			'routeros.components.plugin.*',
 		));
 	}
 
