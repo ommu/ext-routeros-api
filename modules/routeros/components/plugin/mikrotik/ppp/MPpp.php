@@ -17,49 +17,49 @@ require_once PPP_PATH . 'MPprofile.php';
 require_once PPP_PATH . 'MPsecret.php';
  
 class MPpp {
-    /**
-     * @access private
-     * @var type array
-     */
-    private $talker;
+	/**
+	 * @access private
+	 * @var type array
+	 */
+	private $talker;
 	private $_conn;
 	
-    function __construct($talker, $conn) {
+	function __construct($talker, $conn) {
 		$this->talker = $talker;
 		$this->_conn = $conn;
-    }
-        
-    /**
-     * This method for call class Mapi_Ppp_Profile
-     * @return Object of Mapi_Ppp_Profile class
-     */
-    public function ppp_profile() {
-        return new MPprofile($this->talker, $this->_conn);
-    }
-    
-    /**
-     * This method for call class Mapi_Ppp_Secret
-     * @return Object of Mapi_Ppp_Secret
-     */
-    public function ppp_secret() {
-        return new MPsecret($this->talker, $this->_conn);
-    }
-    
-    
-    /**
-     * This method for call class Mapi_Ppp_Aaa
-     * @access public
-     * @return object of Mapi_Ppp_Aaa class
-     */
-    public function ppp_aaa() {
-        return new MPaaa($this->talker, $this->_conn);
-    }
-    
-    /**
-     * This method for call class Mapi_Ppp_Active
-     * @return Object of Mapi_Ppp_Active class
-     */
-    public function ppp_active() {
-        return new MPactive($this->talker, $this->_conn);
-    }
+	}
+		
+	/**
+	 * This method for call class Mapi_Ppp_Profile
+	 * @return Object of Mapi_Ppp_Profile class
+	 */
+	public function ppp_profile() {
+		return new MPprofile($this->talker, $this->_conn);
+	}
+	
+	/**
+	 * This method for call class Mapi_Ppp_Secret
+	 * @return Object of Mapi_Ppp_Secret
+	 */
+	public function ppp_secret() {
+		return new MPsecret($this->talker, $this->_conn);
+	}
+	
+	
+	/**
+	 * This method for call class Mapi_Ppp_Aaa
+	 * @access public
+	 * @return object of Mapi_Ppp_Aaa class
+	 */
+	public function ppp_aaa() {
+		return new MPaaa($this->talker, $this->_conn);
+	}
+	
+	/**
+	 * This method for call class Mapi_Ppp_Active
+	 * @return Object of Mapi_Ppp_Active class
+	 */
+	public function ppp_active() {
+		return new MPactive($this->talker, $this->_conn);
+	}
 }

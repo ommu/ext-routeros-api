@@ -37,61 +37,61 @@ class ORouterosAPI extends RouterosAPI
 		return new self;		
 	}
 	
-    public function talker() {		
+	public function talker() {		
 		return $this->connect(Yii::app()->params['Mikrotik']['address'], Yii::app()->params['Mikrotik']['username'], Yii::app()->params['Mikrotik']['password']);
-    }
-    
-    /**
-     * This method for call class Mapi Interface
-     * @access public
-     * @return Object of Mapi_Interface 
-     */
-    public function interfaces() {
-		return new MInterfaces($this->talker(), $this);
-    }
+	}
 	
-    /**
-     * This method for call class Mapi IP
-     * @access public
-     * @return Object of Mapi_Ip 
-     */
-    public function ip() {
+	/**
+	 * This method for call class Mapi Interface
+	 * @access public
+	 * @return Object of Mapi_Interface 
+	 */
+	public function interfaces() {
+		return new MInterfaces($this->talker(), $this);
+	}
+	
+	/**
+	 * This method for call class Mapi IP
+	 * @access public
+	 * @return Object of Mapi_Ip 
+	 */
+	public function ip() {
 		return new MIp($this->talker(), $this);
-    }
-    
-    /**
-     * This method for call class Mapi Ppp
-     * @access public
-     * @return Object of Mapi_Ppp
-     */
-    public function ppp() {
+	}
+	
+	/**
+	 * This method for call class Mapi Ppp
+	 * @access public
+	 * @return Object of Mapi_Ppp
+	 */
+	public function ppp() {
 		return new MPpp($this->talker(), $this);
-    }
-    
-    /**
-     * This method for call class Mapi_System
-     * @access public
-     * @return Mapi_System 
-     */
-    public function system() {
+	}
+	
+	/**
+	 * This method for call class Mapi_System
+	 * @access public
+	 * @return Mapi_System 
+	 */
+	public function system() {
 		return new MSystem($this->talker(), $this);
-    }
-    
-    /**
-     * This method for call class Mapi_File
-     * @access public
-     * @return Mapi_File 
-     */
-    public function file() {
+	}
+	
+	/**
+	 * This method for call class Mapi_File
+	 * @access public
+	 * @return Mapi_File 
+	 */
+	public function file() {
 		return new MFile($this->talker(), $this);
-    }
-    
-    /**
-     * This metod used call class Mapi_System_Scheduler 
-     * @return Mapi_Ip
-     */
-    public function system_scheduler() {
+	}
+	
+	/**
+	 * This metod used call class Mapi_System_Scheduler 
+	 * @return Mapi_Ip
+	 */
+	public function system_scheduler() {
 		return new MSscheduler($this->talker(), $this);
-    }    
+	}	
 	
 }
