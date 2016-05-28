@@ -59,16 +59,23 @@ class MIphotspot {
 	
 	/**
 	 * This function is used to add hotspot
+	 * @param
+	 *	name (text): HotSpot server's name or identifier
+	 *	interface (name of interface): interface to run HotSpot on
+	 *	address-pool (name / none; default: none): address space used to change HotSpot client any IP address to a valid address. Useful for providing public network access to mobile clients that are not willing to change their networking settings
+	 *	profile (name; default: default): HotSpot server default HotSpot profile, which is located in /ip hotspot profile
+	 *	idle-timeout (time / none; default: 5m): period of inactivity for unauthorized clients. When there is no traffic from this client (literally client computer should be switched off), once the timeout is reached, user is dropped from the HotSpot host list, its used address becomes available
+	 *	keepalive-timeout (time / none; default: none): Value of how long host can stay out of reach to be removed from the HotSpot.
+	 *	login-timeout (time / none; default: none): period of time after which if host hasn't been authorized it self with system the host entry gets deleted from host table. Loop repeats until host logs in the system. Enable if there are situations where host cannot login after being to long in host table unauthorized.
+	 *	addresses-per-mac (integer / unlimited; default: 2): number of IP addresses allowed to be bind with the MAC address, when multiple HotSpot clients connected with one MAC-address
+	 *	ip-of-dns-name
+	 *	proxy-status
+	 *
 	 * @return type array
 	 */
 	public function setup_hotspot($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/hotspot/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+		$this->_conn->comm("/ip/hotspot/add", $param);
+		return "Sucsess";
 	}
 	
 	/**
