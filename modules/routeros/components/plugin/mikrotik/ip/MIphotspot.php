@@ -3,6 +3,14 @@
  * Description of Mapi_Ip_Hotspot
  *
  * TOC :
+ *	Hotspot
+ *	  get_all_hotspot
+ *	  setup_hotspot
+ *	  enable_hotspot
+ *	  disable_hotspot
+ *	  set_hotspot
+ *	  detail_hotspot
+ *	  delete_hotspot
  *	IP Bindings
  *	  get_all_ip_binding
  *	  add_ip_binding
@@ -31,6 +39,118 @@ class MIphotspot {
 	function __construct($talker, $conn) {
 		$this->talker = $talker;
 		$this->_conn = $conn;
+	}
+	
+	/**
+	 * This method is used to display
+	 * all hotspot
+	 * @return type array 
+	 * 
+	 */
+	public function get_all_hotspot() {
+		$this->_conn->write("/ip/hotspot/getall");
+		$array = $this->_conn->read();
+		$i = 0;
+		if($i < count($array))
+			return $array;
+		else
+			return "No Ip Hotspot Setup, Please Your Setup Ip Hotspot";		
+	}
+	
+	/**
+	 * This function is used to add hotspot
+	 * @return type array
+	 */
+	public function setup_hotspot($param) {
+	   $sentence = new SentenceUtil();
+	   $sentence->addCommand("/ip/hotspot/add");
+	   foreach ($param as $name => $value){
+			   $sentence->setAttribute($name, $value);
+	   }	   
+	   $this->talker->send($sentence);
+	   return "Sucsess";
+	}
+	
+	/**
+	 * This method is used to activate the hotspot by id
+	 * @param type $id string
+	 * @return type array
+	 * 
+	 */
+	 public function enable_hotspot($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/ip/hotspot/enable");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}
+	
+	 /**
+	 * This method is used to disable hotspot by id
+	 * @param type $id string
+	 * @return type array
+	 * 
+	 */
+	 public function disable_hotspot($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/ip/hotspot/disable");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}
+	
+	/**
+	 * This method is used to change hotspot based on the id
+	 * @param type $param array
+	 * @param type $id string
+	 * @return type array
+	 * 
+	 */
+	  public function set_hotspot($param, $id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/ip/hotspot/set");
+		foreach ($param as $name => $value){
+				$sentence->setAttribute($name, $value);
+		 }
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}	 
+	
+	/**
+	 * This method is used to display one hotspot 
+	 * in detail based on the id
+	 * @param type $id string
+	 * @return type array
+	 * 
+	 */
+	 public function detail_hotspot($id) {
+		$sentence = new SentenceUtil();
+		$sentence->fromCommand("/ip/hotspot/print");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		$rs = $this->talker->getResult();
+		$i = 0;
+		if ($i < $rs->size()){
+			return $rs->getResultArray();
+		}  else {
+			return "No Ip Hotspot With This Id = ".$id;
+		}
+		
+	}
+	
+	 /**
+	 * This method is used to remove the hotspot by id
+	 * @param type $id string
+	 * @return type array
+	 * 
+	 */
+	 public function delete_hotspot($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/ip/hotspot/user/remove");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
 	}
 	
 	/**
@@ -256,121 +376,5 @@ class MIphotspot {
 		}
 		
 		
-	}
-	
-	/**
-	 * This method is used to display
-	 * all hotspot
-	 * @return type array 
-	 * 
-	 */
-	public function get_all_hotspot() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/hotspot/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip Hotspot Setup, Please Your Setup Ip Hotspot";	   
-		}
-		
-	}
-	
-	/**
-	 * This method is used to activate the hotspot by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	 public function enable_hotspot($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	 /**
-	 * This method is used to disable hotspot by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	 public function disable_hotspot($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	 /**
-	 * This method is used to remove the hotspot by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	 public function delete_hotspot($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/user/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to change hotspot based on the id
-	 * @param type $param array
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	  public function set_hotspot($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}	 
-	
-	/**
-	 * This method is used to display one hotspot 
-	 * in detail based on the id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	 public function detail_hotspot($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/hotspot/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip Hotspot With This Id = ".$id;
-		}
-		
-	}
-	
-	/**
-	 * This function is used to add hotspot
-	 * @return type array
-	 */
-	public function setup_hotspot($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/hotspot/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
 	}
 }
