@@ -2,6 +2,17 @@
 /**
  * Description of Mapi_Ip_Hotspot
  *
+ * TOC :
+ *	IP Bindings
+ *	  get_all_ip_binding
+ *	  add_ip_binding
+ *	  disable_ip_binding
+ *	  enable_ip_binding
+ *	  set_ip_binding
+ *	  detail_ip_binding
+ *	  delete_ip_binding
+ *	Direct
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -21,6 +32,112 @@ class MIphotspot {
 		$this->talker = $talker;
 		$this->_conn = $conn;
 	}
+	
+	/**
+	 * This method used for get all Ip Hotspot Ip-Binding
+	 * @return type array
+	 */
+	public function get_all_ip_binding() {
+		$this->_conn->write("/ip/hotspot/ip-binding/getall");
+		$array = $this->_conn->read();
+		$i = 0;
+		if($i < count($array))
+			return $array;
+		else
+			return "No Ip Binding To Set, Please Your Add Ip Binding";
+	}
+	
+	/**
+	 * This method used for add new Ip Hotspot Ip-Binding
+	 * @param type $param array
+	 * @return type array
+	 */
+	public function add_ip_binding($param) {
+	   $sentence = new SentenceUtil();
+	   $sentence->addCommand("/ip/hotspot/ip-binding/add");
+	   foreach ($param as $name => $value){
+			   $sentence->setAttribute($name, $value);
+	   }	   
+	   $this->talker->send($sentence);
+	   return "Sucsess";
+	}
+	
+	/**
+	 * This method used for disable Ip Hotspot Ip-Binding
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function disable_ip_binding($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/ip/hotspot/ip-binding/disable");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}
+	
+	/**
+	 * This method used for enable Ip Hotspot Ip-Binding
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function enable_ip_binding($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/ip/hotspot/ip-binding/enable");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}
+	
+	/**
+	 * This method used for delete Ip Hotspot Ip-Binding
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function delete_ip_binding($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/ip/hotspot/ip-binding/remove");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}
+	
+	/**
+	 * This method used for set or edit Ip Hotspot Ip-Binding
+	 * @param type $param array
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function set_ip_binding($param, $id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/ip/hotspot/ip-binding/set");
+		foreach ($param as $name => $value){
+			$sentence->setAttribute($name, $value);
+		}
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}
+	
+	/**
+	 * This method used for detail Ip Hotspot Ip-Binding
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function detail_ip_binding($id) {
+		$sentence = new SentenceUtil();
+		$sentence->fromCommand("/ip/hotspot/ip-binding/print");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		$rs = $this->talker->getResult();
+		$i = 0 ;
+		if ($i < $rs->size()){
+			return $rs->getResultArray();
+		}  else {
+			return "No Ip Binding With This Id = ".$id;
+		}
+		
+	}	
+	
 	
 	/**
 	 * This method is used to add the user hotspot
@@ -255,114 +372,5 @@ class MIphotspot {
 	   }	   
 	   $this->talker->send($sentence);
 	   return "Sucsess";
-	}
-	
-	/**
-	 * This method used for add new Ip Hotspot Ip-Binding
-	 * @param type $param array
-	 * @return type array
-	 */
-	public function add_ip_binding($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/hotspot/ip-binding/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	/**
-	 * This method used for disable Ip Hotspot Ip-Binding
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function disable_ip_binding($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/ip-binding/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method used for enable Ip Hotspot Ip-Binding
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function enable_ip_binding($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/ip-binding/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method used for get all Ip Hotspot Ip-Binding
-	 * @return type array
-	 */
-	public function get_all_ip_binding() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/hotspot/ip-binding/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip Binding To Set, Please Your Add Ip Binding";
-		}
-		
-	}
-	
-	/**
-	 * This method used for delete Ip Hotspot Ip-Binding
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function delete_ip_binding($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/ip-binding/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method used for set or edit Ip Hotspot Ip-Binding
-	 * @param type $param array
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function set_ip_binding($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/ip-binding/set");
-		foreach ($param as $name => $value){
-			$sentence->setAttribute($name, $value);
-		}
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method used for detail Ip Hotspot Ip-Binding
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function detail_ip_binding($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/hotspot/ip-binding/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip Binding With This Id = ".$id;
-		}
-		
 	}
 }
