@@ -48,13 +48,13 @@ class MIphotspot {
 	 * 
 	 */
 	public function get_all_hotspot() {
-		$this->_conn->write("/ip/hotspot/getall");
-		$array = $this->_conn->read();
+		$array = $this->_conn->comm("/ip/hotspot/getall");
+		$this->_conn->disconnect();
 		$i = 0;
 		if($i < count($array))
 			return $array;
 		else
-			return "No Ip Hotspot Setup, Please Your Setup Ip Hotspot";		
+			return "No Ip Hotspot Setup, Please Your Setup Ip Hotspot";
 	}
 	
 	/**
@@ -71,38 +71,41 @@ class MIphotspot {
 	 *	ip-of-dns-name
 	 *	proxy-status
 	 *
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#ip_hotspot
+	 *
 	 * @return type array
 	 */
 	public function setup_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/add", $param);
+		$this->_conn->disconnect();
 		return "Sucsess";
 	}
 	
 	/**
-	 * This method is used to activate the hotspot by id
-	 * @param type $id string
+	 * This method is used to activate the hotspot
+	 * @param
+	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#ip_hotspot
+	 *
 	 * @return type array
-	 * 
 	 */
-	 public function enable_hotspot($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
+	 public function enable_hotspot($param) {
+		$this->_conn->comm("/ip/hotspot/enable", $param);
+		$this->_conn->disconnect();
 		return "Sucsess";
 	}
 	
 	 /**
-	 * This method is used to disable hotspot by id
-	 * @param type $id string
+	 * This method is used to disable hotspot
+	 * @param
+	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#ip_hotspot
+	 *
 	 * @return type array
-	 * 
 	 */
-	 public function disable_hotspot($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
+	 public function disable_hotspot($param) {
+		$this->_conn->comm("/ip/hotspot/disable", $param);
+		$this->_conn->disconnect();
 		return "Sucsess";
 	}
 	
@@ -125,24 +128,20 @@ class MIphotspot {
 	}	 
 	
 	/**
-	 * This method is used to display one hotspot 
-	 * in detail based on the id
-	 * @param type $id string
+	 * This method is used to display one hotspot in detail
+	 * @param
+	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#ip_hotspot
+	 *
 	 * @return type array
-	 * 
 	 */
-	 public function detail_hotspot($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/hotspot/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip Hotspot With This Id = ".$id;
-		}
+	 public function detail_hotspot($param) {
+		$array = $this->_conn->comm("/ip/hotspot/print", $param);
+		$this->_conn->disconnect();
+		if($i < count($array))
+			return $array;
+		else
+			return "No Ip Hotspot With This Id = ".$param;
 		
 	}
 	
