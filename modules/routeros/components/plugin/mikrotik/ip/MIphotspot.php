@@ -3,7 +3,7 @@
  * Description of Mapi_Ip_Hotspot
  *
  * TOC :
- *	Hotspot
+ *	Servers
  *	  get_all_hotspot
  *	  setup_hotspot
  *	  enable_hotspot
@@ -11,11 +11,19 @@
  *	  set_hotspot
  *	  detail_hotspot
  *	  delete_hotspot
+ *	Users
+ *	  get_all_hotspot_user
+ *	  add_hotspot_user
+ *	  enable_hotspot_user
+ *	  disable_hotspot_user
+ *	  set_hotspot_user
+ *	  detail_hotspot_user
+ *	  delete_hotspot_user 
  *	IP Bindings
  *	  get_all_ip_binding
  *	  add_ip_binding
- *	  disable_ip_binding
  *	  enable_ip_binding
+ *	  disable_ip_binding
  *	  set_ip_binding
  *	  detail_ip_binding
  *	  delete_ip_binding
@@ -42,16 +50,13 @@ class MIphotspot {
 	}
 	
 	/**
-	 * This method is used to display
-	 * all hotspot
+	 * This method is used to display all hotspot
 	 * @return type array 
-	 * 
 	 */
 	public function get_all_hotspot() {
 		$array = $this->_conn->comm("/ip/hotspot/getall");
 		$this->_conn->disconnect();
-		$i = 0;
-		if($i < count($array))
+		if(0 < count($array))
 			return $array;
 		else
 			return "No Ip Hotspot Setup, Please Your Setup Ip Hotspot";
@@ -71,42 +76,42 @@ class MIphotspot {
 	 *	ip-of-dns-name
 	 *	proxy-status
 	 *
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#ip_hotspot
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 *
 	 * @return type array
 	 */
 	public function setup_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/add", $param);
 		$this->_conn->disconnect();
-		return "Sucsess";
+		return "Success";
 	}
 	
 	/**
 	 * This method is used to activate the hotspot
 	 * @param
 	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#ip_hotspot
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 *
 	 * @return type array
 	 */
 	 public function enable_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/enable", $param);
 		$this->_conn->disconnect();
-		return "Sucsess";
+		return "Success";
 	}
 	
-	 /**
+	/**
 	 * This method is used to disable hotspot
 	 * @param
 	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#ip_hotspot
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 *
 	 * @return type array
 	 */
 	 public function disable_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/disable", $param);
 		$this->_conn->disconnect();
-		return "Sucsess";
+		return "Success";
 	}
 	
 	/**
@@ -114,7 +119,6 @@ class MIphotspot {
 	 * @param type $param array
 	 * @param type $id string
 	 * @return type array
-	 * 
 	 */
 	  public function set_hotspot($param, $id) {
 		$sentence = new SentenceUtil();
@@ -124,39 +128,154 @@ class MIphotspot {
 		 }
 		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
-		return "Sucsess";
+		return "Success";
 	}	 
 	
 	/**
 	 * This method is used to display one hotspot in detail
 	 * @param
 	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#ip_hotspot
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 *
 	 * @return type array
 	 */
 	 public function detail_hotspot($param) {
 		$array = $this->_conn->comm("/ip/hotspot/print", $param);
 		$this->_conn->disconnect();
-		if($i < count($array))
+		if(0 < count($array))
 			return $array;
 		else
 			return "No Ip Hotspot With This Id = ".$param;
-		
 	}
 	
-	 /**
-	 * This method is used to remove the hotspot by id
+	/**
+	 * This method is used to remove the hotspot
+	 * @param
+	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *
+	 * @return type array
+	 */
+	 public function delete_hotspot($param) {
+		$this->_conn->comm("/ip/hotspot/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to display all users hotspot
+	 * @return type array
+	 */
+	public function get_all_hotspot_user() {
+		$this->_conn->write("/ip/hotspot/user/getall");
+		$array = $this->_conn->read();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Ip Hotspot User To Set, Please Your Add Ip Hotspot User";		
+	}
+	
+	/**
+	 * This method is used to add the user hotspot
+	 * @param
+	 *	server (string | all; Default: all): HotSpot server's name to which user is allowed login
+	 *	name (string; Default: ): HotSpot login page username, when MAC-address authentication is used name is configured as client's MAC-address
+	 *	password (string; Default: ): User password
+	 *	address (IP; Default: 0.0.0.0): IP address, when specified client will get the address from the HotSpot one-to-one NAT translations. Address does not restrict HotSpot login only from this address
+	 *	mac-address (MAC; Default: 00:00:00:00:00:00): Client is allowed to login only from the specified MAC-address. If value is 00:00:00:00:00:00, any mac address is allowed.
+	 *	profile (string; Default: default): User profile configured in /ip hotspot user profile
+	 *	routes (string; Default: ): Routes added to HotSpot gateway when client is connected. The route format dst-address gateway metric (for example, 192.168.1.0/24 192.168.0.1 1)
+	 *	email (string; Default: ): HotSpot client's e-mail, informational value for the HotSpot user
+	 *	comment (string; Default: ): descriptive information for HotSpot user, it might be used for scripts to change parameters for specific clients
+	 *	limit-uptime (time; Default: 0): Uptime limit for the HotSpot client, user is disconnected from HotSpot as soon as uptime is reached.
+	 *	limit-bytes-in (integer; Default: 0): Maximal amount of bytes that can be received from the user. User is disconnected from HotSpot after the limit is reached.
+	 *	limit-bytes-out (integer; Default: 0): Maximal amount of bytes that can be transmitted from the user. User is disconnected from HotSpot after the limit is reached.
+	 *	limit-bytes-total (integer; Default: 0): (limit-bytes-in+limit-bytes-out). User is disconnected from HotSpot after the limit is reached.
+	 *
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
+	 *	 
+	 * @return type array
+	 */
+   public function add_hotspot_user($param) {
+		$this->_conn->comm("/ip/hotspot/user/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to activate the user hotspot
+	 * @param
+	 *	server, name, password, address, mac-address, profile, routes, email, comment, limit-uptime, limit-bytes-in, limit-bytes-out, limit-bytes-total
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
+	 *	 
+	 * @return type array
+	 */
+	public function enable_hotspot_user($param) {
+		$this->_conn->comm("/ip/hotspot/user/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to disable user hotspot
+	 * @param
+	 *	server, name, password, address, mac-address, profile, routes, email, comment, limit-uptime, limit-bytes-in, limit-bytes-out, limit-bytes-total
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
+	 *	 
+	 * @return type array
+	 */
+	public function disable_hotspot_user($param) {
+		$this->_conn->comm("/ip/hotspot/user/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to change users hotspot based on the id
+	 * @param type $param array
 	 * @param type $id string
 	 * @return type array
-	 * 
 	 */
-	 public function delete_hotspot($id) {
+	public function set_hotspot_user($param, $id) {
 		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/user/remove");
+		$sentence->addCommand("/ip/hotspot/user/set");
+		foreach ($param as $name => $value){
+				$sentence->setAttribute($name, $value);
+		 }
 		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
-		return "Sucsess";
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to display one user hotspot in detail
+	 * @param
+	 *	server, name, password, address, mac-address, profile, routes, email, comment, limit-uptime, limit-bytes-in, limit-bytes-out, limit-bytes-total
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
+	 *	 
+	 * @return type array
+	 */
+	public function detail_hotspot_user($param) {
+		$array = $this->_conn->comm("/ip/hotspot/user/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Ip Hotspot User With This Id = ".$param;
+	}
+	
+	/**
+	 * This method is used to remove the user hotspot
+	 * @param
+	 *	server, name, password, address, mac-address, profile, routes, email, comment, limit-uptime, limit-bytes-in, limit-bytes-out, limit-bytes-total
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
+	 *	 
+	 * @return type array
+	 */
+	public function delete_hotspot_user($param) {
+		$this->_conn->comm("/ip/hotspot/user/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
@@ -164,10 +283,9 @@ class MIphotspot {
 	 * @return type array
 	 */
 	public function get_all_ip_binding() {
-		$this->_conn->write("/ip/hotspot/ip-binding/getall");
-		$array = $this->_conn->read();
-		$i = 0;
-		if($i < count($array))
+		$array = $this->_conn->comm("/ip/hotspot/ip-binding/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
 			return $array;
 		else
 			return "No Ip Binding To Set, Please Your Add Ip Binding";
@@ -175,56 +293,47 @@ class MIphotspot {
 	
 	/**
 	 * This method used for add new Ip Hotspot Ip-Binding
-	 * @param type $param array
+	 * @param
+	 *	address (IP Range; Default: ""): The original IP address of the client
+	 *	mac-address (MAC; Default: ""): MAC address of the client
+	 *	server (string | all; Default: "all"): Name of the HotSpot server. all - will be applied to all hotspot servers
+	 *	to-address (IP; Default: ""): New IP address of the client, translation occurs on the router (client does not know anything about the translation)
+	 *	type (blocked | bypassed | regular; Default: ""): Type of the IP-binding action. regular - performs One-to-One NAT according to the rule, translates address to to-address, bypassed - performs the translation, but excludes client from login to the HotSpot, blocked - translation is not performed and packets from host are dropped
+	 *
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *
 	 * @return type array
 	 */
 	public function add_ip_binding($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/hotspot/ip-binding/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	/**
-	 * This method used for disable Ip Hotspot Ip-Binding
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function disable_ip_binding($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/ip-binding/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+		$this->_conn->comm("/ip/hotspot/ip-binding/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for enable Ip Hotspot Ip-Binding
-	 * @param type $id string
+	 * @param
+	 *	.id, address, mac-address, server, to-address, type
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 * @return type array
 	 */
-	public function enable_ip_binding($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/ip-binding/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_ip_binding($param) {
+		$this->_conn->comm("/ip/hotspot/ip-binding/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method used for delete Ip Hotspot Ip-Binding
-	 * @param type $id string
+	 * This method used for disable Ip Hotspot Ip-Binding
+	 * @param
+	 *	.id, address, mac-address, server, to-address, type
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 * @return type array
 	 */
-	public function delete_ip_binding($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/ip-binding/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_ip_binding($param) {
+		$this->_conn->comm("/ip/hotspot/ip-binding/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
@@ -241,146 +350,35 @@ class MIphotspot {
 		}
 		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
-		return "Sucsess";
+		return "Success";
 	}
 	
 	/**
 	 * This method used for detail Ip Hotspot Ip-Binding
-	 * @param type $id string
+	 * @param
+	 *	.id, address, mac-address, server, to-address, type
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 * @return type array
 	 */
-	public function detail_ip_binding($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/hotspot/ip-binding/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip Binding With This Id = ".$id;
-		}
-		
+	public function detail_ip_binding($param) {
+		$array = $this->_conn->comm("/ip/hotspot/ip-binding/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Ip Binding With This Id = ".$param;
 	}	
 	
-	
 	/**
-	 * This method is used to add the user hotspot
-	 * @param type $param array
+	 * This method used for delete Ip Hotspot Ip-Binding
+	 * @param
+	 *	.id, address, mac-address, server, to-address, type
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 * @return type array
-	 * 
 	 */
-   public function add_hotspot_user($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/hotspot/user/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to disable user hotspot by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	public function disable_hotspot_user($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/user/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to activate the user hotspot by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	public function enable_hotspot_user($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/user/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to change users hotspot based on the id
-	 * @param type $param array
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	public function set_hotspot_user($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/user/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to remove the user hotspot by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	public function delete_hotspot_user($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/user/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to display
-	 * all users hotspot
-	 * @return type array
-	 * 
-	 */
-	public function get_all_hotspot_user() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/hotspot/user/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip Hotspot User To Set, Please Your Add Ip Hotspot User";
-		}
-		
-	}
-	
-	/**
-	 * This method is used to display one user hotspot 
-	 * in detail based on the id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	public function detail_hotspot_user($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/hotspot/user/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip Hotspot User With This Id = ".$id;
-		}
-		
-		
+	public function delete_ip_binding($param) {
+		$array = $this->_conn->comm("/ip/hotspot/ip-binding/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
