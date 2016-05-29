@@ -1,6 +1,15 @@
 <?php
 /**
- * Description of Mapi_File
+ * Description of_Ip_ARP
+ *
+ * TOC :
+ *	get_all_arp
+ *	add_arp
+ *	enable_arp
+ *	disable_arp
+ *	set_arp
+ *	detail_arp
+ *	delete_arp 
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -23,64 +32,64 @@ class MIparp {
 	}
 	
 	/**
-	 * This method is used to add arp
-	 * @param type $param array
+	 * This method is used to display all arp
 	 * @return type array
-	 * j
 	 */
-	public function add_arp($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/arp/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	 /**
-	 * This method is used to delete arp by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	public function delete_arp($id) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/arp/remove");
-	   $sentence->where(".id", "=", $id);
-	   $enable = $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	 /**
-	 * This method is used to enable arp by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	public function enable_arp($id) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/arp/enable");
-	   $sentence->where(".id", "=", $id);
-	   $enable = $this->talker->send($sentence);
-	   return "Sucsess";
+	public function get_all_arp() {
+		$array = $this->_conn->comm("/ip/arp/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Ip ARP To Set, Please Your Add Ip ARP";
 	}
 	
 	/**
-	 * This method is used to disable arp by id
-	 * @param type $id string
+	 * This method is used to add arp
+	 * @param
+	 *	address (IP; Default: ): IP address to be mapped
+	 *	mac-address (MAC; Default: 00:00:00:00:00:00): MAC address to be mapped to
+	 *	interface (string; Default: ): Interface name the IP address is assigned to	 
+	 *
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function disable($id) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/arp/disable");
-	   $sentence->where(".id", "=", $id);
-	   $disable = $this->talker->send($sentence);
-	   return "Sucsess";
+	public function add_arp($param) {
+		$this->_conn->comm("/ip/arp/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
-	 /**
+	/**
+	 * This method is used to enable arp
+	 * @param
+	 *	address, mac-address, interface (string; Default: ): Interface name the IP address is assigned to
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
+	 *
+	 * @return type array
+	 */
+	public function enable_arp($param) {
+		$this->_conn->comm("/ip/arp/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to disable arp
+	 * @param
+	 *	address, mac-address, interface (string; Default: ): Interface name the IP address is assigned to
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
+	 *
+	 * @return type array
+	 */
+	public function disable_arp($param) {
+		$this->_conn->comm("/ip/arp/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
 	 * This method is used to set or edit by id
 	 * @param type $param array
 	 * @param type $id string
@@ -99,42 +108,33 @@ class MIparp {
 	}
 	
 	/**
-	 * This method is used to display all arp
+	 * This method is used to display arp in detail
+	 * @param
+	 *	address, mac-address, interface (string; Default: ): Interface name the IP address is assigned to
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function get_all_arp() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/arp/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip ARP To Set, Please Your Add Ip ARP";
-		}
+	public function detail_arp($param) {
+		$array = $this->_conn->comm("/ip/arp/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Ip ARP With This id = ".$param;
 	}
 	
-	 /**
-	 * This method is used to display arp
-	 * in detail based on the id
-	 * @param type $id string
+	/**
+	 * This method is used to delete arp
+	 * @param
+	 *	address, mac-address, interface (string; Default: ): Interface name the IP address is assigned to
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
+	 *
 	 * @return type array
-	 *  
 	 */
-	public function detail_arp($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/arp/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip ARP With This id = ".$id;
-		}
-				
+	public function delete_arp($param) {
+		$this->_conn->comm("/ip/arp/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
