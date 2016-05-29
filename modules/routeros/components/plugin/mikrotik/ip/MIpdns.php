@@ -3,7 +3,16 @@
  * Description of Mapi_Ip_Dns
  *
  * TOC :
- *	DHCP
+ *	get_all_dns
+ *	set_dns
+ *	get_all_static_dns
+ *	add_dns_static
+ *	set_static_dns
+ *	detail_static_dns
+ *	get_all_dns_cache
+ *	detail_dns_cache
+ *	get_all_dns_cache_all
+ *	detail_dns_cache_all 
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
