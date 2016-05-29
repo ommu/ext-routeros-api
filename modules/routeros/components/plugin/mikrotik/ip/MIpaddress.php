@@ -66,7 +66,6 @@ class MIpaddress {
 	/**
 	 * This method is used to activate the ip address
 	 * @param
-	 *	address, network, interface, broadcast, netmask
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Address
 	 *
 	 * @return type array
@@ -80,7 +79,6 @@ class MIpaddress {
 	/**
 	 * This method is used to disable ip address
 	 * @param
-	 *	address, network, interface, broadcast, netmask
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Address
 	 *
 	 * @return type array
@@ -111,7 +109,6 @@ class MIpaddress {
 	/**
 	 * This method is used to display one ip address in detail
 	 * @param
-	 *	address, network, interface, broadcast, netmask
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Address
 	 *
 	 * @return type array
@@ -128,7 +125,6 @@ class MIpaddress {
 	/**
 	 * This method is used to remove the ip address
 	 * @param
-	 *	address, network, interface, broadcast, netmask
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Address
 	 *
 	 * @return type array

@@ -68,7 +68,6 @@ class MIpdhcprelay {
 	/**
 	 * This method is used to enable ip dhcp relay
 	 * @param
-	 *	name, interface, dhcp-server, delay-threshold, local-address, add-relay-info, relay-info-remote-id
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Relay
 	 *
 	 * @return type array
@@ -82,7 +81,6 @@ class MIpdhcprelay {
 	/**
 	 * This method is used to disable ip dhcp relay
 	 * @param
-	 *	name, interface, dhcp-server, delay-threshold, local-address, add-relay-info, relay-info-remote-id
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Relay
 	 *
 	 * @return type array
@@ -113,7 +111,6 @@ class MIpdhcprelay {
 	/**
 	 * This method is used to display one interface bonding in detail
 	 * @param
-	 *	name, interface, dhcp-server, delay-threshold, local-address, add-relay-info, relay-info-remote-id
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Relay
 	 *
 	 * @return type array
@@ -130,7 +127,6 @@ class MIpdhcprelay {
 	/**
 	 * This method is used to remove ip dhcp relay
 	 * @param
-	 *	name, interface, dhcp-server, delay-threshold, local-address, add-relay-info, relay-info-remote-id
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Relay
 	 *
 	 * @return type array

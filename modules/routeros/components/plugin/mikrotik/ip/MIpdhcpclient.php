@@ -75,7 +75,6 @@ class MIpdhcpclient{
 	/**
 	 * This method is used to enable dhcp client
 	 * @param
-	 *	interface, use-peer-dns, use-peer-ntp, add-default-route, default-route-distance, client-id, comment, disabled, host-name
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Client
 	 *
 	 * @return type array
@@ -89,7 +88,6 @@ class MIpdhcpclient{
 	/**
 	 * This method is used to disable dhcp client
 	 * @param
-	 *	interface, use-peer-dns, use-peer-ntp, add-default-route, default-route-distance, client-id, comment, disabled, host-name
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Client
 	 *
 	 * @return type array
@@ -103,7 +101,6 @@ class MIpdhcpclient{
 	/**
 	 * This method is used to renew dhcp client
 	 * @param
-	 *	interface, use-peer-dns, use-peer-ntp, add-default-route, default-route-distance, client-id, comment, disabled, host-name
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Client
 	 *
 	 * @return type array
@@ -117,7 +114,6 @@ class MIpdhcpclient{
 	/**
 	 * This method is used to release dhcp client
 	 * @param
-	 *	interface, use-peer-dns, use-peer-ntp, add-default-route, default-route-distance, client-id, comment, disabled, host-name
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Client
 	 *
 	 * @return type array
@@ -148,7 +144,6 @@ class MIpdhcpclient{
 	/**
 	 * This method is used to display one ip dhcp client in detail
 	 * @param
-	 *	interface, use-peer-dns, use-peer-ntp, add-default-route, default-route-distance, client-id, comment, disabled, host-name
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Client
 	 *
 	 * @return type array
@@ -165,7 +160,6 @@ class MIpdhcpclient{
 	/**
 	 * This method is used to remove dhcp client
 	 * @param
-	 *	interface, use-peer-dns, use-peer-ntp, add-default-route, default-route-distance, client-id, comment, disabled, host-name
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Client
 	 *
 	 * @return type array

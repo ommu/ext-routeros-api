@@ -64,7 +64,6 @@ class MIparp {
 	/**
 	 * This method is used to enable arp
 	 * @param
-	 *	address, mac-address, interface (string; Default: ): Interface name the IP address is assigned to
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
 	 *
 	 * @return type array
@@ -78,7 +77,6 @@ class MIparp {
 	/**
 	 * This method is used to disable arp
 	 * @param
-	 *	address, mac-address, interface (string; Default: ): Interface name the IP address is assigned to
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
 	 *
 	 * @return type array
@@ -110,7 +108,6 @@ class MIparp {
 	/**
 	 * This method is used to display arp in detail
 	 * @param
-	 *	address, mac-address, interface (string; Default: ): Interface name the IP address is assigned to
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
 	 *
 	 * @return type array
@@ -127,7 +124,6 @@ class MIparp {
 	/**
 	 * This method is used to delete arp
 	 * @param
-	 *	address, mac-address, interface (string; Default: ): Interface name the IP address is assigned to
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
 	 *
 	 * @return type array
