@@ -46,7 +46,7 @@ class MIpaccounting {
 	/**
 	 * This method is used to set or edit ip accounting
 	 * @param
-	 *	enabled (yes |no; Default: no): whether local IP traffic accounting is enabled
+	 * 	enabled (yes |no; Default: no): whether local IP traffic accounting is enabled
 	 *	account-local-traffic (yes |no; Default: no): whether to account the traffic to/from the router itself
 	 *	threshold (integer; Default: 256): maximum number of IP pairs in the accounting table (maximal value is 8192)
 	 *

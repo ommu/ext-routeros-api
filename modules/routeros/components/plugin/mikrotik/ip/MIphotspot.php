@@ -315,6 +315,7 @@ class MIphotspot {
 	 * @param
 	 *	.id, address, mac-address, server, to-address, type
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *
 	 * @return type array
 	 */
 	public function enable_ip_binding($param) {
@@ -328,6 +329,7 @@ class MIphotspot {
 	 * @param
 	 *	.id, address, mac-address, server, to-address, type
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *
 	 * @return type array
 	 */
 	public function disable_ip_binding($param) {
@@ -358,6 +360,7 @@ class MIphotspot {
 	 * @param
 	 *	.id, address, mac-address, server, to-address, type
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *
 	 * @return type array
 	 */
 	public function detail_ip_binding($param) {
@@ -374,6 +377,7 @@ class MIphotspot {
 	 * @param
 	 *	.id, address, mac-address, server, to-address, type
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *
 	 * @return type array
 	 */
 	public function delete_ip_binding($param) {
