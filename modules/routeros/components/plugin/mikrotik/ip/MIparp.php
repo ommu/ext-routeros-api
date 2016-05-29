@@ -33,6 +33,9 @@ class MIparp {
 	
 	/**
 	 * This method is used to display all arp
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
+	 *
 	 * @return type array
 	 */
 	public function get_all_arp() {
@@ -88,11 +91,11 @@ class MIparp {
 	}
 	
 	/**
-	 * This method is used to set or edit by id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to set or edit
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/ARP
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function set_arp($param, $id) {
 		$sentence = new SentenceUtil();

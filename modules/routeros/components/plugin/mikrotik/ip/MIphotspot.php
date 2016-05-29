@@ -51,7 +51,10 @@ class MIphotspot {
 	
 	/**
 	 * This method is used to display all hotspot
-	 * @return type array 
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *
+	 * @return type array
 	 */
 	public function get_all_hotspot() {
 		$array = $this->_conn->comm("/ip/hotspot/getall");
@@ -89,7 +92,6 @@ class MIphotspot {
 	/**
 	 * This method is used to activate the hotspot
 	 * @param
-	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 *
 	 * @return type array
@@ -103,7 +105,6 @@ class MIphotspot {
 	/**
 	 * This method is used to disable hotspot
 	 * @param
-	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 *
 	 * @return type array
@@ -115,9 +116,10 @@ class MIphotspot {
 	}
 	
 	/**
-	 * This method is used to change hotspot based on the id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to change hotspot
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *
 	 * @return type array
 	 */
 	  public function set_hotspot($param, $id) {
@@ -134,7 +136,6 @@ class MIphotspot {
 	/**
 	 * This method is used to display one hotspot in detail
 	 * @param
-	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 *
 	 * @return type array
@@ -151,7 +152,6 @@ class MIphotspot {
 	/**
 	 * This method is used to remove the hotspot
 	 * @param
-	 *	.id, name, interface, address-pool, profile, idle-timeout, keepalive-timeout, login-timeout, addresses-per-mac, ip-of-dns-name, proxy-status
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
 	 *
 	 * @return type array
@@ -164,6 +164,9 @@ class MIphotspot {
 	
 	/**
 	 * This method is used to display all users hotspot
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
+	 *	 
 	 * @return type array
 	 */
 	public function get_all_hotspot_user() {
@@ -205,7 +208,6 @@ class MIphotspot {
 	/**
 	 * This method is used to activate the user hotspot
 	 * @param
-	 *	server, name, password, address, mac-address, profile, routes, email, comment, limit-uptime, limit-bytes-in, limit-bytes-out, limit-bytes-total
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
 	 *	 
 	 * @return type array
@@ -219,7 +221,6 @@ class MIphotspot {
 	/**
 	 * This method is used to disable user hotspot
 	 * @param
-	 *	server, name, password, address, mac-address, profile, routes, email, comment, limit-uptime, limit-bytes-in, limit-bytes-out, limit-bytes-total
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
 	 *	 
 	 * @return type array
@@ -231,9 +232,10 @@ class MIphotspot {
 	}
 	
 	/**
-	 * This method is used to change users hotspot based on the id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to change users hotspot
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
+	 *	 
 	 * @return type array
 	 */
 	public function set_hotspot_user($param, $id) {
@@ -250,7 +252,6 @@ class MIphotspot {
 	/**
 	 * This method is used to display one user hotspot in detail
 	 * @param
-	 *	server, name, password, address, mac-address, profile, routes, email, comment, limit-uptime, limit-bytes-in, limit-bytes-out, limit-bytes-total
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
 	 *	 
 	 * @return type array
@@ -267,7 +268,6 @@ class MIphotspot {
 	/**
 	 * This method is used to remove the user hotspot
 	 * @param
-	 *	server, name, password, address, mac-address, profile, routes, email, comment, limit-uptime, limit-bytes-in, limit-bytes-out, limit-bytes-total
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot/User
 	 *	 
 	 * @return type array
@@ -280,6 +280,9 @@ class MIphotspot {
 	
 	/**
 	 * This method used for get all Ip Hotspot Ip-Binding
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#IP_Bindings
+	 *
 	 * @return type array
 	 */
 	public function get_all_ip_binding() {
@@ -300,7 +303,7 @@ class MIphotspot {
 	 *	to-address (IP; Default: ""): New IP address of the client, translation occurs on the router (client does not know anything about the translation)
 	 *	type (blocked | bypassed | regular; Default: ""): Type of the IP-binding action. regular - performs One-to-One NAT according to the rule, translates address to to-address, bypassed - performs the translation, but excludes client from login to the HotSpot, blocked - translation is not performed and packets from host are dropped
 	 *
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#IP_Bindings
 	 *
 	 * @return type array
 	 */
@@ -313,8 +316,7 @@ class MIphotspot {
 	/**
 	 * This method used for enable Ip Hotspot Ip-Binding
 	 * @param
-	 *	.id, address, mac-address, server, to-address, type
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#IP_Bindings
 	 *
 	 * @return type array
 	 */
@@ -327,8 +329,7 @@ class MIphotspot {
 	/**
 	 * This method used for disable Ip Hotspot Ip-Binding
 	 * @param
-	 *	.id, address, mac-address, server, to-address, type
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#IP_Bindings
 	 *
 	 * @return type array
 	 */
@@ -340,8 +341,9 @@ class MIphotspot {
 	
 	/**
 	 * This method used for set or edit Ip Hotspot Ip-Binding
-	 * @param type $param array
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#IP_Bindings
+	 *
 	 * @return type array
 	 */
 	public function set_ip_binding($param, $id) {
@@ -358,8 +360,7 @@ class MIphotspot {
 	/**
 	 * This method used for detail Ip Hotspot Ip-Binding
 	 * @param
-	 *	.id, address, mac-address, server, to-address, type
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#IP_Bindings
 	 *
 	 * @return type array
 	 */
@@ -375,8 +376,7 @@ class MIphotspot {
 	/**
 	 * This method used for delete Ip Hotspot Ip-Binding
 	 * @param
-	 *	.id, address, mac-address, server, to-address, type
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Hotspot#IP_Bindings
 	 *
 	 * @return type array
 	 */

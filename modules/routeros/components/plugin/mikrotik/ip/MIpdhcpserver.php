@@ -43,6 +43,9 @@ class MIpdhcpserver {
 	
 	/**
 	 * This methode is used to display all ip dhcp server
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Server#General
+	 *
 	 * @return type array
 	 */
 	public function get_all_dhcp_server() {
@@ -108,9 +111,10 @@ class MIpdhcpserver {
 	}
 	
 	/**
-	 * This methode is used to det or edit ip dhcp server by id
-	 * @param type $param array
-	 * @param type $id string
+	 * This methode is used to det or edit ip dhcp server 
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Server#General
+	 *
 	 * @return type array
 	 */
 	public function set_dhcp_server($param, $id) {
@@ -155,6 +159,9 @@ class MIpdhcpserver {
 	
 	/**
 	 * This methode is used to display all ip dhcp server network
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Server#Networks
+	 *
 	 * @return type array
 	 */
 	public function get_all_dhcp_server_network() {
@@ -193,9 +200,9 @@ class MIpdhcpserver {
 	
 	/**
 	 * This methode is used to set or edit ip dhcp server network
-	 * by id
-	 * @param type $param array
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Server#Networks
+	 *
 	 * @return type array
 	 */
 	public function set_dhcp_server_network($param, $id) {

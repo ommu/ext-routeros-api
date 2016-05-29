@@ -33,6 +33,9 @@ class MIpaddress {
 	
 	/**
 	 * This method is used to display all ip address
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Address
+	 *
 	 * @return type array
 	 */
 	public function get_all_address() {
@@ -91,9 +94,10 @@ class MIpaddress {
 	
 	/**
 	 * This method is used to set or edit by id
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Address
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function set_address($param, $id) {
 		$sentence = new SentenceUtil();

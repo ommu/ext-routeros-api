@@ -36,6 +36,9 @@ class MIpdhcpclient{
 
 	/**
 	 * This method is used to display all dhcp client
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Client
+	 *
 	 * @return type array
 	 */
 	public function get_all_dhcp_client() {
@@ -125,9 +128,10 @@ class MIpdhcpclient{
 	}
 	
 	/**
-	 * This method is used to set or edit dhcp client by id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to set or edit dhcp client
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Client
+	 *
 	 * @return type array
 	 */
 	public function set_dhcp_client($param, $id) {

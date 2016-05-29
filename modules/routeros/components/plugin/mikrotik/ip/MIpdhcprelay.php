@@ -33,6 +33,9 @@ class MIpdhcprelay {
 	
 	/**
 	 * This method is used to display all ip dhcp relay
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Relay
+	 *
 	 * @return type array
 	 */
 	public function get_all_dhcp_relay() {
@@ -92,9 +95,10 @@ class MIpdhcprelay {
 	}
 	
 	/**
-	 * This method is used to set or edit ip dhcp relay by id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to set or edit ip dhcp relay
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/DHCP_Relay
+	 *
 	 * @return type array
 	 */
 	public function set_dhcp_relay($param, $id) {

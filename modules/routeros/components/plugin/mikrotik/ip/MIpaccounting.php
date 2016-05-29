@@ -7,8 +7,8 @@
  *	set_accounting
  *	get_all_web_access
  *	set_web_access
- *	get_all_snapshot
  *	get_all_uncounted 
+ *	get_all_snapshot
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -32,6 +32,9 @@ class MIpaccounting {
 	
 	/**
 	 * This method is used to display all accounting
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Accounting#Local_IP_Traffic_Accounting
+	 *
 	 * @return type array
 	 */
 	public function get_all_accounting() {
@@ -62,6 +65,9 @@ class MIpaccounting {
 	
 	/**
 	 * This method is used to display all web-acces
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Accounting#Web_Access_to_the_Local_IP_Traffic_Accounting_Table
+	 *
 	 * @return type array
 	 */
 	public function get_all_web_access() {
@@ -90,6 +96,22 @@ class MIpaccounting {
 	}
 	
 	/**
+	 * This method is used to display all uncounted
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Accounting#Uncounted_Connections
+	 *
+	 * @return type array
+	 */
+	public function get_all_uncounted() {
+		$array = $this->_conn->comm('/ip/accounting/uncounted/getall');
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Ip Accounting Uncounted To Set, Please Your Add Ip Accounting Uncounted";
+	}
+	
+	/**
 	 * This method is used to display all snapshot
 	 * @return type array
 	 */
@@ -100,19 +122,6 @@ class MIpaccounting {
 			return $array;
 		else
 			return "No Ip Accounting Snapshot To Set, Please Your Add Ip Accounting Snapshot";
-	}
-	
-	/**
-	 * This method is used to display all uncounted
-	 * @return type array
-	 */
-	public function get_all_uncounted() {
-		$array = $this->_conn->comm('/ip/accounting/uncounted/getall');
-		$this->_conn->disconnect();
-		if(0 < count($array))
-			return $array;
-		else
-			return "No Ip Accounting Uncounted To Set, Please Your Add Ip Accounting Uncounted";
 	}
 }
 
