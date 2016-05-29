@@ -24,84 +24,65 @@ class MIproute {
 	
 	/**
 	 * This method is used to display all ip route
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Route
+	 *
 	 * @return type array
 	 */
 	public function get_all_route() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/route/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/ip/route/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Ip Route To Set, Please Your Add Ip Route";
-		}
-		return $this->query('');
 	}
 	
 	/**
 	 * This method is used to add ip route gateway
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Route
+	 *
 	 * @return type array
 	 */
 	public function add_route_gateway($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/route/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	/**
-	 * Can change or disable only static routes
-	 * @param type $id is not array 
-	 * 
-	 */
-	public function disable_route($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/route/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+		$this->_conn->comm("/ip/route/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * Can change or enable only static routes
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Route
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function enable_route($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/route/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess"; 
+	public function enable_route($param) {
+		$this->_conn->comm("/ip/route/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * Can change or remove only static routes
-	 * @param type $id string
+	 * Can change or disable only static routes
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Route
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function delete_route($id) {
-	   $sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/route/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_route($param) {
+		$this->_conn->comm("/ip/route/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * Can change only static routes
-	 * @param type $param array
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Route
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function set_route($param, $id) {
 		$sentence = new SentenceUtil();
@@ -115,25 +96,32 @@ class MIproute {
 	}
 	
 	/**
-	 * This method is used to display one ip route
-	 * in detail based on the id
-	 * @param type $id string
+	 * This method is used to display one ip route in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Route
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function detail_route($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/route/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip Route With This id = ".$id;
-		}
-				
+	public function detail_route($param) {
+		$array = $this->_conn->comm("/ip/route/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Ip Route With This id = ".$param;
+	}
+	
+	/**
+	 * Can change or remove only static routes
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Route
+	 *
+	 * @return type array
+	 */
+	public function delete_route($param) {
+		$this->_conn->comm("/ip/route/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
 

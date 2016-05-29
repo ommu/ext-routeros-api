@@ -23,60 +23,40 @@ class MIppool {
 	}
 	
 	/**
-	 * This method is used to add pool
-	 * @param type $param array
+	 * This method is used to display all pool
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Pools
+	 *
 	 * @return type array
-	 * 
-	 */
-	public function add_pool($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/pool/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to display
-	 * all pool
-	 * @return type array
-	 * 
 	 */
 	public function get_all_pool() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand('/ip/pool/getall');
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}else{
+		$array = $this->_conn->comm("/ip/pool/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Ip Pool To Set, Please Your Add Ip Pool";
-		}
 	}
 	
 	/**
-	 * This method is used to remove the pool by id
-	 * @param type $id string
+	 * This method is used to add pool
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Pools
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function delete_pool($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/pool/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function add_pool($param) {
+		$this->_conn->comm("/ip/pool/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to change pool based on the id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to change pool
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Pools
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function set_pool($param, $id) {
 		$sentence = new SentenceUtil();
@@ -89,24 +69,32 @@ class MIppool {
 		return "Sucsess";
 	}
 	 /**
-	 * This method is used to display one pool 
-	 * in detail based on the id
-	 * @param type $id string
+	 * This method is used to display one pool in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Pools
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function detail_pool($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/pool/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Ip Binding With This Id = ".$id;
-		}
+	public function detail_pool($param) {
+		$array = $this->_conn->comm("/ip/pool/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Ip Binding With This Id = ".$param;
+	}
+	
+	/**
+	 * This method is used to remove the pool
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Pools
+	 *
+	 * @return type array
+	 */
+	public function delete_pool($param) {
+		$this->_conn->comm("/ip/pool/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
 

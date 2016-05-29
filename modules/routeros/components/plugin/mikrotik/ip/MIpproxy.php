@@ -23,25 +23,25 @@ class MIpproxy {
 	
 	/**
 	 * This method used for get all Ip Proxi
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Proxy
+	 *
 	 * @return type array
 	 */
 	public function get_all_proxy() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ip/proxy/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/ip/proxy/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Ip Proxi To Set, Please Your Add Ip Proxi";
-		}
 	}
 	
 	/**
-	 *
 	 * This method used for set Ip proxy
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Proxy
+	 *
 	 * @return type array
 	 */
 	public function set_proxy($param) {
