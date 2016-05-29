@@ -38,7 +38,7 @@ class MIp {
 		$this->_conn = $conn;
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Address
 	 * @return Object of Mapi_Ip_Address class
 	 */
@@ -46,7 +46,7 @@ class MIp {
 		return new MIpAddress($this->talker, $this->_conn);
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Hotspot
 	 * @return Object of Mapi_Ip_Hotspot class
 	 */
@@ -54,7 +54,7 @@ class MIp {
 		return new MIphotspot($this->talker, $this->_conn);
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Pool
 	 * @return Object of Mapi_Ip_Pool class
 	 */
@@ -62,7 +62,7 @@ class MIp {
 		return new MIppool($this->talker, $this->_conn);
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Dns
 	 * @return Object of Mapi_Ip_Dns class
 	 */
@@ -70,7 +70,7 @@ class MIp {
 		return new MIpdns($this->talker, $this->_conn);
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Firewall
 	 * @return Object of Mapi_Ip_Firewall class
 	 */
@@ -78,7 +78,7 @@ class MIp {
 		return new MIpfirewall($this->talker, $this->_conn);
 	}
 
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Accounting
 	 * @return Object of Mapi_Ip_Accounting class
 	 */
@@ -87,7 +87,7 @@ class MIp {
 		
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Arp
 	 * @return Object of Mapi_Ip_Arp class
 	 */
@@ -95,7 +95,7 @@ class MIp {
 		return new MIparp($this->talker, $this->_conn);
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Dhcp_Client
 	 * @return Object of Mapi_Ip _Dhcp_Client class
 	 */
@@ -103,7 +103,7 @@ class MIp {
 		return new MIpdhcpclient($this->talker, $this->_conn);
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Dhcp_Relay
 	 * @return Object of Mapi_Ip_Dhcp_Relay class
 	 */
@@ -111,7 +111,7 @@ class MIp {
 		return new MIpdhcprelay($this->talker, $this->_conn);
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Dhcp_Server
 	 * @return Object of Mapi_Ip_Dhcp_Server class
 	 */
@@ -119,7 +119,7 @@ class MIp {
 		return new MIpdhcpserver($this->talker, $this->_conn);
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Route
 	 * @return Object if Mapi_Ip_Router class
 	 */
@@ -127,13 +127,12 @@ class MIp {
 		return new MIproute($this->talker, $this->_conn);
 	}
 	
-	 /**
+	/**
 	 * This method is used toclass Mapi_Ip_Service
 	 * @return Object of Mapi_Ip_Service class
 	 */
 	public function service() {
 		return new MIpservice($this->talker, $this->_conn);
-		
 	}
 	
 	/**
@@ -142,10 +141,7 @@ class MIp {
 	 */
 	public function proxy() {
 		return new MIpproxy($this->talker, $this->_conn);
-		
 	}
-	
-	
 	
 }
 

@@ -167,8 +167,8 @@ class MIphotspot {
 	 * @return type array
 	 */
 	public function get_all_hotspot_user() {
-		$this->_conn->write("/ip/hotspot/user/getall");
-		$array = $this->_conn->read();
+		$array = $this->_conn->comm("/ip/hotspot/user/getall");
+		$this->_conn->disconnect();
 		if(0 < count($array))
 			return $array;
 		else
@@ -377,7 +377,7 @@ class MIphotspot {
 	 * @return type array
 	 */
 	public function delete_ip_binding($param) {
-		$array = $this->_conn->comm("/ip/hotspot/ip-binding/remove", $param);
+		$this->_conn->comm("/ip/hotspot/ip-binding/remove", $param);
 		$this->_conn->disconnect();
 		return "Success";
 	}
