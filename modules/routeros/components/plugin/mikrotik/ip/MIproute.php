@@ -2,6 +2,15 @@
 /**
  * Description of Mapi_Ip_Route
  *
+ * TOC :
+ *	get_all_route
+ *	add_route_gateway
+ *	enable_route
+ *	disable_route
+ *	set_route
+ *	detail_route
+ *	delete_route 
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB

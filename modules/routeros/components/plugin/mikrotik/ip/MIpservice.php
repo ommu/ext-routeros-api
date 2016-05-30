@@ -2,6 +2,13 @@
 /**
  * Description of Mapi_Ip_Service
  *
+ * TOC :
+ *	get_all_service
+ *	enable_service
+ *	disable_service
+ *	set_service
+ *	detail_service 
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB

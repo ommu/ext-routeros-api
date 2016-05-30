@@ -2,6 +2,13 @@
 /**
  * Description of Mapi_Ip_Pool
  *
+ * TOC :
+ *	get_all_pool
+ *	add_pool
+ *	set_pool
+ *	detail_pool
+ *	delete_pool 
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -68,7 +75,8 @@ class MIppool {
 		$this->talker->send($sentence);
 		return "Sucsess";
 	}
-	 /**
+	
+	/**
 	 * This method is used to display one pool in detail
 	 * @param
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Pools

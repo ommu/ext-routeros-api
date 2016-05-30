@@ -2,6 +2,40 @@
 /**
  * Description of Mapi_Ip_Firewall
  *
+ * TOC :
+ *	Filter Rules
+ *	  get_all_firewall_filter
+ *	  add_firewall_filter
+ *	  enable_firewall_filter
+ *	  disable_firewall_filter
+ *	  set_firewall_filter
+ *	  detail_firewall_filter
+ *	  delete_firewall_filter
+ *	NAT
+ *	  get_all_firewall_nat
+ *	  add_firewall_nat
+ *	  enable_firewall_nat
+ *	  disable_firewall_nat
+ *	  set_firewall_nat
+ *	  detail_firewall_nat
+ *	  delete_firewall_nat
+ *	Mangle
+ *	  get_all_firewall_mangle
+ *	  add_firewall_mangle
+ *	  enable_firewall_mangle
+ *	  disable_firewall_mangle
+ *	  set_firewall_mangle
+ *	  detail_firewall_mangle
+ *	  delete_firewall_mangle
+ *	Connections
+ *	  get_all_firewall_connection
+ *	  delete_firewall_connection
+ *	Service Ports
+ *	  get_all_firewall_service_port
+ *	  enable_firewall_service_port
+ *	  disable_firewall_service_port
+ *	  detail_firewall_service_port 
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -20,108 +54,6 @@ class MIpfirewall {
 	function __construct($talker, $conn) {
 		$this->talker = $talker;
 		$this->_conn = $conn;
-	}
-	
-	/**
-	 * This method is used to display all firewall nat
-	 * @attr
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
-	 *
-	 * @return type array
-	 */
-	public function get_all_firewall_nat() {
-		$array = $this->_conn->comm("/ip/firewall/nat/getall");
-		$this->_conn->disconnect();
-		if(0 < count($array))
-			return $array;
-		else
-			return "No Ip Firewall NAT To Set, Please Your Add Ip Firewall NAT";
-	}
-	
-	/**
-	 * This method is used to add the firewall nat
-	 * @attr
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
-	 *
-	 * @return type array
-	 */
-	public function add_firewall_nat($param) {
-		$this->_conn->comm("/ip/firewall/nat/add", $param);
-		$this->_conn->disconnect();
-		return "Success";
-	}
-	
-	/**
-	 * This method is used to enable firewall nat
-	 * @param
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
-	 *
-	 * @return type array
-	 */
-	public function enable_firewall_nat($param) {
-		$this->_conn->comm("/ip/firewall/nat/enable", $param);
-		$this->_conn->disconnect();
-		return "Success";
-	}
-	
-	/**
-	 * This method is used to disable firewall nat
-	 * @param
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
-	 *
-	 * @return type array
-	 */
-	public function disable_firewall_nat($param) {
-		$this->_conn->comm("/ip/firewall/nat/disable", $param);
-		$this->_conn->disconnect();
-		return "Success";
-	}
-	
-	/**
-	 * This method is used to change firewall nat
-	 * @param
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
-	 *
-	 * @return type array
-	 */
-	public function set_firewall_nat($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/firewall/nat/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	 /**
-	 * This method is used to display one firewall nat in detail
-	 * @param
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
-	 *
-	 * @return type array
-	 */
-	public function detail_firewall_nat($param) {
-		$array = $this->_conn->comm("/ip/firewall/nat/print", $param);
-		$this->_conn->disconnect();
-		if(0 < count($array))
-			return $array;
-		else
-			return "No Ip Firewall NAT With This id = ".$param;
-	}
-	
-	/**
-	 * This method is used to remove firewall nat
-	 * @param
-	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
-	 *
-	 * @return type array
-	 */
-	public function delete_firewall_nat($param) {
-		$this->_conn->comm("/ip/firewall/nat/remove", $param);
-		$this->_conn->disconnect();
-		return "Success";
 	}
 	
 	/**
@@ -221,6 +153,108 @@ class MIpfirewall {
 	 */
 	public function delete_firewall_filter($param) {
 		$this->_conn->comm("/ip/firewall/filter/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to display all firewall nat
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
+	 *
+	 * @return type array
+	 */
+	public function get_all_firewall_nat() {
+		$array = $this->_conn->comm("/ip/firewall/nat/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Ip Firewall NAT To Set, Please Your Add Ip Firewall NAT";
+	}
+	
+	/**
+	 * This method is used to add the firewall nat
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
+	 *
+	 * @return type array
+	 */
+	public function add_firewall_nat($param) {
+		$this->_conn->comm("/ip/firewall/nat/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to enable firewall nat
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
+	 *
+	 * @return type array
+	 */
+	public function enable_firewall_nat($param) {
+		$this->_conn->comm("/ip/firewall/nat/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to disable firewall nat
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
+	 *
+	 * @return type array
+	 */
+	public function disable_firewall_nat($param) {
+		$this->_conn->comm("/ip/firewall/nat/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to change firewall nat
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
+	 *
+	 * @return type array
+	 */
+	public function set_firewall_nat($param, $id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/ip/firewall/nat/set");
+		foreach ($param as $name => $value){
+				$sentence->setAttribute($name, $value);
+		 }
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}
+	
+	/**
+	 * This method is used to display one firewall nat in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
+	 *
+	 * @return type array
+	 */
+	public function detail_firewall_nat($param) {
+		$array = $this->_conn->comm("/ip/firewall/nat/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Ip Firewall NAT With This id = ".$param;
+	}
+	
+	/**
+	 * This method is used to remove firewall nat
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
+	 *
+	 * @return type array
+	 */
+	public function delete_firewall_nat($param) {
+		$this->_conn->comm("/ip/firewall/nat/remove", $param);
 		$this->_conn->disconnect();
 		return "Success";
 	}
