@@ -2,6 +2,12 @@
 /**
  * Description of Mapi_Ppp
  *
+ * TOC :
+ *	ppp_profile
+ *	ppp_secret
+ *	ppp_aaa
+ *	ppp_active 
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -43,8 +49,7 @@ class MPpp {
 	 */
 	public function ppp_secret() {
 		return new MPsecret($this->talker, $this->_conn);
-	}
-	
+	}	
 	
 	/**
 	 * This method for call class Mapi_Ppp_Aaa

@@ -2,6 +2,10 @@
 /**
  * Description of Mapi_Ppp_Active
  *
+ * TOC :
+ *	get_all_ppp_active
+ *	delete_ppp_active
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -24,31 +28,30 @@ class MPactive {
 	
 	/**
 	 * This method is used to display all ppp active
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:PPP_AAA#Active_Users
+	 *
 	 * @return type array
 	 */
 	public function get_all_ppp_active() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ppp/active/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/ppp/active/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No PPP Active To Set, Please Your Add PPP Active";
-		}
 	}
 	
 	/**
 	 * This method is used to delete ppp active
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:PPP_AAA#Active_Users
+	 *
 	 * @return type array
 	 */
-	public function delete_ppp_active($id) {
-		$sentence = new SentenceUtil();
-	   $sentence->addCommand("/ppp/active/remove");
-	   $sentence->where(".id", "=", $id);
-	   $enable = $this->talker->send($sentence);
-	   return "Sucsess";
+	public function delete_ppp_active($param) {
+		$this->_conn->comm("/ppp/active/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }

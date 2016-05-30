@@ -2,6 +2,13 @@
 /**
  * Description of Mapi_Ppp_Profile
  *
+ * TOC :
+ *	get_all_ppp_profile
+ *	add_ppp_profile
+ *	set_ppp_profile
+ *	detail_ppp_profile
+ *	delete_ppp_profile 
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -23,59 +30,40 @@ class MPprofile {
 	}
 	
 	/**
-	 * This method is used to add ppp profile
-	 * @param type $param array
-	 * @return type array
-	 * 
-	 */
-	public function add_ppp_profile($param) {
-		$sentence = new SentenceUtil();
-	   $sentence->addCommand("/ppp/profile/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	/**
 	 * This method is used to display all ppp profile
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:PPP_AAA#User_Profiles
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function get_all_ppp_profile() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ppp/profile/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/ppp/profile/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No PPP Profile To Set, Please Your Add PPP Profile";
-		}
 	}
 	
 	/**
-	 * This method is used to remove ppp profile by id
-	 * @param type $id string
+	 * This method is used to add ppp profile
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:PPP_AAA#User_Profiles
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function delete_ppp_profile($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ppp/profile/remove");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function add_ppp_profile($param) {
+		$this->_conn->comm("/ppp/profile/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to set or edit ppp profile by id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to set or edit ppp profile
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:PPP_AAA#User_Profiles
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function set_ppp_profile($param, $id) {
 		$sentence = new SentenceUtil();
@@ -88,25 +76,33 @@ class MPprofile {
 		return "Sucsess";
 	}
 	
-	 /**
-	 * This method is used to display one ppp profile
-	 * in detail based on the id
-	 * @param type $id string
+	/**
+	 * This method is used to display one ppp profile in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:PPP_AAA#User_Profiles
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function detail_ppp_profile($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/ppp/profile/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No PPP Profile With This id = ".$id;
-		}
+	public function detail_ppp_profile($param) {
+		$array = $this->_conn->comm("/ppp/profile/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No PPP Profile With This id = ".$param;
+	}
+	
+	/**
+	 * This method is used to remove ppp profile
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:PPP_AAA#User_Profiles
+	 *
+	 * @return type array
+	 */
+	public function delete_ppp_profile($param) {
+		$this->_conn->comm("/ppp/profile/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 }
