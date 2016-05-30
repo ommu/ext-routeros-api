@@ -2,6 +2,9 @@
 /**
  * Description of Mapi_System
  *
+ * TOC :
+ *	get_all_address
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -23,68 +26,37 @@ class Msystem {
 	}
 	
 	/**
-	 * This method is used to set systemn identity
-	 * @param type $name string
+	 * This method is used to display all system clock
 	 * @return type array
-	 */  
-	public function set_identity($name) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/system/identity/set");
-	   $sentence->setAttribute("name", $name);
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+	 */
+	public function get_all_clock() {
+		$array = $this->_conn->comm("/system/clock/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return false;
 	}
+	
 	/**
 	 * This method is used to display all system  identiy
 	 * @return type array
 	 */
 	public function get_all_identity() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/system/identity/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		return $rs->getResultArray();
+		$array = $this->_conn->comm("/system/identity/getall");
+		$this->_conn->disconnect();
+		return $array;
 	}
 	
 	/**
-	 * This method is used to display all system clock
-	 * @return type array
-	 */
-	public function get_all_clock() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/system/clock/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		 $i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}
-	}
-	
-	/**
-	 * This method is used to system bacup save
+	 * This method is used to set systemn identity
 	 * @param type $name string
 	 * @return type array
-	 */
-	public function save_backup($name) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/system/backup/save");
-	   $sentence->setAttribute("name", $name);
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to system backup load
-	 * @param type $name string
-	 * @return type array
-	 */
-	public function load_backup($name) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/system/backup/load");
-	   $sentence->setAttribute("name", $name);
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+	 */  
+	public function set_identity($param) {
+		$this->_conn->comm("/system/identity/set", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
@@ -92,62 +64,82 @@ class Msystem {
 	 * @return type array
 	 */
 	public function get_all_history() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/system/history/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		 $i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/system/history/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No History";
-		}
-		
 	}
 	
 	/**
 	 * This method is used to display all system license
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:License#RouterBOARD_and_PC_license
+	 *
 	 * @return type array
 	 */
 	public function get_all_license() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/system/license/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		 $i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}
+		$array = $this->_conn->comm("/system/license/print");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return false;
+	}
+	
+	/**
+	 * This method is used to system reset configuration
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Configuration_Management#Configuration_Reset
+	 *
+	 * @return type array
+	 */
+	public function reset($param) {
+		$this->_conn->comm("/system/reset-configuration", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method is used to display all system routerboard
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:RouterBOARD_settings
+	 *
 	 * @return type array
 	 */
 	public function get_all_routerboard() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/system/routerboard/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		 $i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}
+		$array = $this->_conn->comm("/system/routerboard/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return false;
 	}
+	
 	/**
-	 * This method is used to system reset configuration
-	 * @param type $keep_users string (yes or no)
-	 * @param type $no_defaults string (yes or no)
-	 * @param type $skip_backup string (yes or no)
+	 * This method is used to system bacup save
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Configuration_Management#System_Backup
+	 *
 	 * @return type array
 	 */
-	public function reset($keep_users, $no_defaults, $skip_backup) {
-		$sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/address/add");
-	   $sentence->setAttribute("keep-users", $keep_users);
-	   $sentence->setAttribute("no-defaults", $no_defaults);
-	   $sentence->setAttribute("skip-backup", $skip_backup);
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+	public function save_backup($param) {
+		$this->_conn->comm("/system/backup/save", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}
+	
+	/**
+	 * This method is used to system backup load
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Configuration_Management#System_Backup
+	 *
+	 * @return type array
+	 */
+	public function load_backup($param) {
+		$this->_conn->comm("/system/backup/load", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
