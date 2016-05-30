@@ -2,6 +2,11 @@
 /**
  * Description of Mapi_File
  *
+ * TOC :
+ *	get_all_file
+ *	detail_file
+ *	delete_file 
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -23,52 +28,47 @@ class MFile {
 	}
 	
 	/**
-	 * This method is used to display all file in mikrotik RouterOs
+	 * This method is used to display all file
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:System/File
+	 *
 	 * @return type array
 	 */
 	public function get_all_file() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/file/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/file/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No File";
-		}
 	}
 	
 	/**
-	 * This method is used to display one file 
-	 * in detail based on the id
-	 * @param type $id string 
+	 * This method is used to display one file in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:System/File
+	 *
 	 * @return type array
 	 */
-	public function detail_file($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/file/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No File With This id = ".$id;
-		}
+	public function detail_file($param) {
+		$array = $this->_conn->comm("/file/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No File With This id = ".$param;
 	}
 	
 	/**
-	 * This method is used to delete file by id
-	 * @param type $id string
+	 * This method is used to delete file
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:System/File
+	 *
 	 * @return type array
 	 */
-	public function delete_file($id) {
-		$sentence = new SentenceUtil();
-	   $sentence->addCommand("/file/remove");
-	   $sentence->where(".id", "=", $id);
-	   $enable = $this->talker->send($sentence);
-	   return "Sucsess";
+	public function delete_file($param) {
+		$this->_conn->comm("/file/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
