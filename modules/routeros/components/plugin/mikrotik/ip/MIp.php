@@ -2,6 +2,21 @@
  /**
  * Description of Mapi_Ip
  *
+ * TOC :
+ *	address
+ *	hotspot
+ *	pool
+ *	dns
+ *	firewall
+ *	accounting
+ *	arp
+ *	dhcp_client
+ *	dhcp_relay
+ *	dhcp_server
+ *	route
+ *	service
+ *	proxy 
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -84,7 +99,6 @@ class MIp {
 	 */
 	public function accounting() {
 		return new MIpAccounting($this->talker, $this->_conn);
-		
 	}
 	
 	/**

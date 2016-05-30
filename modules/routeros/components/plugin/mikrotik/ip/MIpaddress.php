@@ -137,5 +137,5 @@ class MIpaddress {
 		$this->_conn->comm("/ip/address/remove", $param);
 		$this->_conn->disconnect();
 		return "Success";
-   }
+	}
 }
