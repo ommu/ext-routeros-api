@@ -2,6 +2,9 @@
 /**
  * Description of Mapi_interface_Bridge
  *
+ * TOC :
+ *	get_all_address
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -23,6 +26,23 @@ class MInterfacebridge {
 	}
 	
 	/**
+	 * This method used for get all interface bridge
+	 * @return type array
+	 */
+	public function get_all_bridge() {
+		$sentence = new SentenceUtil();
+		$sentence->fromCommand("/interface/bridge/getall");
+		$this->talker->send($sentence);
+		$rs = $this->talker->getResult();
+		$i = 0 ;
+		if ($i < $rs->size()){
+			return $rs->getResultArray();
+		}  else {
+			return "No Interface Bridge To Set, Please Your Add Interface Bridge";
+		}
+	}
+	
+	/**
 	 * This method used for add new interface bridge
 	 * @param type $param array
 	 * @return type array
@@ -33,19 +53,6 @@ class MInterfacebridge {
 		foreach ($param as $name => $value){
 			   $sentence->setAttribute($name, $value);
 		}	   
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method used for disable interface bridge
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function disable_bridge($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/disable");
-		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
 		return "Sucsess";
 	}
@@ -64,33 +71,16 @@ class MInterfacebridge {
 	}
 	
 	/**
-	 * This method used for delete interface bridge
+	 * This method used for disable interface bridge
 	 * @param type $id string
 	 * @return type array
 	 */
-	public function delete_bridge($id) {
+	public function disable_bridge($id) {
 		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/remove");
+		$sentence->addCommand("/interface/bridge/disable");
 		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
 		return "Sucsess";
-	}
-	
-	/**
-	 * This method used for get all interface bridge
-	 * @return type array
-	 */
-	public function get_all_bridge() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/bridge/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface Bridge To Set, Please Your Add Interface Bridge";
-		}
 	}
 	
 	/**
@@ -129,50 +119,14 @@ class MInterfacebridge {
 		}
 	}
 	
-	 public function add_bridge_nat($param) {
-		 $sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/bridge/nat/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	/**
-	 * This method used for disable interface bridge
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function disable_bridge_nat($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/nat/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method used for enable interface bridge
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function enable_bridge_nat($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/nat/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
 	/**
 	 * This method used for delete interface bridge
 	 * @param type $id string
 	 * @return type array
 	 */
-	public function delete_bridge_nat($id) {
+	public function delete_bridge($id) {
 		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/nat/remove");
+		$sentence->addCommand("/interface/bridge/remove");
 		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
 		return "Sucsess";
@@ -193,6 +147,46 @@ class MInterfacebridge {
 		}  else {
 			return "No Interface Bridge NAT To Set, Please Your Add Interface Bridge NAT";
 		}
+	}
+	
+	/**
+	 * This method used for get all interface bridge
+	 * @return type array
+	 */
+	public function add_bridge_nat($param) {
+		 $sentence = new SentenceUtil();
+	   $sentence->addCommand("/interface/bridge/nat/add");
+	   foreach ($param as $name => $value){
+			   $sentence->setAttribute($name, $value);
+	   }	   
+	   $this->talker->send($sentence);
+	   return "Sucsess";
+	}
+	
+	/**
+	 * This method used for enable interface bridge
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function enable_bridge_nat($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/bridge/nat/enable");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}
+	
+	/**
+	 * This method used for disable interface bridge
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function disable_bridge_nat($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/bridge/nat/disable");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
 	}
 	
 	/**
@@ -232,20 +226,16 @@ class MInterfacebridge {
 	}
 	
 	/**
-	 * This method used for set interface Bridge Settings
-	 * @param type $use_ip_firewall string (default : yes or no)
-	 * @param type $use_ip_firewall_for_vlan string (default : yes or no)
-	 * @param type $use_ip_firewall_for_pppoe string (default : yes or no)
+	 * This method used for delete interface bridge
+	 * @param type $id string
 	 * @return type array
 	 */
-	public function set_bridge_settings($use_ip_firewall, $use_ip_firewall_for_vlan, $use_ip_firewall_for_pppoe) {
-	   $sentence = new SentenceUtil();
-	   $sentence->fromCommand("/interface/bridge/settings/set");
-	   $sentence->setAttribute("use-ip-firewall", $use_ip_firewall);
-	   $sentence->setAttribute("use-ip-firewall-for-vlan", $use_ip_firewall_for_vlan);
-	   $sentence->setAttribute("use-ip-firewall-for-pppoe", $use_ip_firewall_for_pppoe);
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+	public function delete_bridge_nat($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/bridge/nat/remove");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
 	}
 	
 	/**
@@ -264,6 +254,23 @@ class MInterfacebridge {
 			return "No Interface Bridge Settings To Set, Please Your Add Interface Bridge Settings";
 		}
 		return $this->query('');
+	}
+	
+	/**
+	 * This method used for set interface Bridge Settings
+	 * @param type $use_ip_firewall string (default : yes or no)
+	 * @param type $use_ip_firewall_for_vlan string (default : yes or no)
+	 * @param type $use_ip_firewall_for_pppoe string (default : yes or no)
+	 * @return type array
+	 */
+	public function set_bridge_settings($use_ip_firewall, $use_ip_firewall_for_vlan, $use_ip_firewall_for_pppoe) {
+	   $sentence = new SentenceUtil();
+	   $sentence->fromCommand("/interface/bridge/settings/set");
+	   $sentence->setAttribute("use-ip-firewall", $use_ip_firewall);
+	   $sentence->setAttribute("use-ip-firewall-for-vlan", $use_ip_firewall_for_vlan);
+	   $sentence->setAttribute("use-ip-firewall-for-pppoe", $use_ip_firewall_for_pppoe);
+	   $this->talker->send($sentence);
+	   return "Sucsess";
 	}
 }
 

@@ -2,6 +2,9 @@
 /**
  * Description of Mapi_File
  *
+ * TOC :
+ *	get_all_address
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -22,35 +25,16 @@ class MInterfaceethernet {
 		$this->_conn = $conn;
 	}
 	 
-	 /**
-	  * This method is used to display all interface
-	  * @return type array
-	  */
-	 public function get_all_interface() {
+	/**
+	 * This method is used to display all interface
+	 * @return type array
+	 */
+	public function get_all_interface() {
 		$sentence = new SentenceUtil();
 		$sentence->fromCommand("/interface/getall");
 		$this->talker->send($sentence);
 		$rs = $this->talker->getResult();
 		return $rs->getResultArray();
-	}
-	
-	/**
-	 * This method is used to display one interface  
-	 * in detail based on the id
-	 * @param type $param array
-	 * @param type $id string
-	 * @return type array
-	 */
-	
-	public function set_interface($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
 	}
 	
 	/**
@@ -78,6 +62,25 @@ class MInterfaceethernet {
 		$enable = $this->talker->send($sentence);
 		return "Sucsess";
 	}
+	
+	/**
+	 * This method is used to display one interface  
+	 * in detail based on the id
+	 * @param type $param array
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function set_interface($param, $id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/set");
+		foreach ($param as $name => $value){
+				$sentence->setAttribute($name, $value);
+		 }
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}
+	
 	/**
 	 * This method is used to display one interafce 
 	 * in detail based on the id

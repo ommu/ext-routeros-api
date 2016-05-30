@@ -2,6 +2,9 @@
 /**
  * Description of Mapi_interface_Bonding
  *
+ * TOC :
+ *	get_all_address
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -20,6 +23,27 @@ class MInterfacebonding {
 	function __construct($talker, $conn) {
 		$this->talker = $talker;
 		$this->_conn = $conn;
+	}
+	
+	/**
+	 * This method is used to display all interface bonding
+	 * 
+	 * Example :
+	 * 
+	 * print_r($this->mikrotik_api->interfaces()->bonding()->get_all_bonding());
+	 * @return type array
+	 */
+	public function get_all_bonding() {
+		 $sentence = new SentenceUtil();
+		$sentence->fromCommand("/interface/bonding/getall");
+		$this->talker->send($sentence);
+		$rs = $this->talker->getResult();
+		$i = 0 ;
+		if ($i < $rs->size()){
+			return $rs->getResultArray();
+		}  else {
+			return "No Interface Bonding To Set, Please Your Add Interface Bonding";
+		}
 	}
 	
 	/**
@@ -76,7 +100,7 @@ class MInterfacebonding {
 	 * @param type $param array
 	 * @return type array
 	 */
-	 public function add_bonding($param) {
+	public function add_bonding($param) {
 		 $sentence = new SentenceUtil();
 	   $sentence->addCommand("/interface/bonding/add");
 	   foreach ($param as $name => $value){
@@ -84,27 +108,6 @@ class MInterfacebonding {
 	   }	   
 	   $this->talker->send($sentence);
 	   return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to display all interface bonding
-	 * 
-	 * Example :
-	 * 
-	 * print_r($this->mikrotik_api->interfaces()->bonding()->get_all_bonding());
-	 * @return type array
-	 */
-	 public function get_all_bonding() {
-		 $sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/bonding/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface Bonding To Set, Please Your Add Interface Bonding";
-		}
 	}
 	
 	/**
@@ -116,7 +119,7 @@ class MInterfacebonding {
 	 * @param type $id string
 	 * @return type array
 	 */
-	 public function enable_bonding($id) {
+	public function enable_bonding($id) {
 		$sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/bonding/enable");
 		$sentence->where(".id", "=", $id);
@@ -133,7 +136,7 @@ class MInterfacebonding {
 	 * @param type $id string
 	 * @return type array
 	 */
-	 public function disable_bonding($id) {
+	public function disable_bonding($id) {
 		 $sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/bonding/disable");
 		$sentence->where(".id", "=", $id);
@@ -193,7 +196,7 @@ class MInterfacebonding {
 	 * @param type $id string
 	 * @return type array
 	 */
-	  public function set_bonding($param, $id) {
+	public function set_bonding($param, $id) {
 		  $sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/bonding/set");
 		foreach ($param as $name => $value){
@@ -214,7 +217,7 @@ class MInterfacebonding {
 	 * @param type $id string
 	 * @return type array
 	 */
-	 public function detail_bonding($id) {
+	public function detail_bonding($id) {
 		$sentence = new SentenceUtil();
 		$sentence->fromCommand("/interface/bonding/print");
 		$sentence->where(".id", "=", $id);
@@ -227,6 +230,7 @@ class MInterfacebonding {
 			return "No Interface Bonding With This id = ".$id;
 		}
 	}
+	
 	/**
 	 * This method is used to delete interface bonding by id
 	 * 
@@ -234,7 +238,7 @@ class MInterfacebonding {
 	 * @param type $id string
 	 * @return type array
 	 */
-	 public function delete_bonding($id) {
+	public function delete_bonding($id) {
 		 $sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/bonding/remove");
 		$sentence->where(".id", "=", $id);

@@ -2,6 +2,9 @@
 /**
  * Description of Mapi_interface_l2tp_client
  *
+ * TOC :
+ *	get_all_address
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -23,6 +26,23 @@ class MInterfacel2tpclient {
 	}
 	
 	/**
+	 * This method used for get all l2tp client
+	 * @return type array
+	 */
+	public function get_all_l2tp_client() {
+		$sentence = new SentenceUtil();
+		$sentence->fromCommand("/interface/l2tp-client/getall");
+		$this->talker->send($sentence);
+		$rs = $this->talker->getResult();
+		$i = 0 ;
+		if ($i < $rs->size()){
+			return $rs->getResultArray();
+		}  else {
+			return "No Interface L2TP Client To Set, Please Your Add Interface L2TP Client";
+		}
+	}
+	
+	/**
 	 * This method used for add new l2tp client
 	 * @param type $param array
 	 * @return type array
@@ -38,19 +58,6 @@ class MInterfacel2tpclient {
 	}
 	
 	/**
-	 * This method used for disable l2tp client
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function disable_l2tp_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/l2tp-client/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
 	 * This method used for enable l2tp client
 	 * @param type $id string
 	 * @return type array
@@ -61,38 +68,19 @@ class MInterfacel2tpclient {
 		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
 		return "Sucsess";
-	 }
-	 
-	 /**
-	  * This method used for delete l2tp client
-	  * @param type $id string
-	  * @return type array
-	  */
-	public function delete_l2tp_client($id) {
+	}
+	
+	/**
+	 * This method used for disable l2tp client
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function disable_l2tp_client($id) {
 		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/l2tp-client/remove");
+		$sentence->addCommand("/interface/l2tp-client/disable");
 		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
 		return "Sucsess";
-	  }
-	  
-	  /**
-	   * This method used for detail l2tp client
-	   * @param type $id string
-	   * @return type array
-	   */
-	public function detail_l2tp_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/l2tp-client/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface L2TP Client With This id = ".$id;
-		}
 	}
 	
 	/**
@@ -111,22 +99,37 @@ class MInterfacel2tpclient {
 		$this->talker->send($sentence);
 		return "Sucsess";
 	}
-	
+	  
 	/**
-	 * This method used for get all l2tp client
+	 * This method used for detail l2tp client
+	 * @param type $id string
 	 * @return type array
 	 */
-	public function get_all_l2tp_client() {
+	public function detail_l2tp_client($id) {
 		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/l2tp-client/getall");
+		$sentence->fromCommand("/interface/l2tp-client/print");
+		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
 		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
+		$i = 0;
+		if($i < $rs->size()){
 			return $rs->getResultArray();
 		}  else {
-			return "No Interface L2TP Client To Set, Please Your Add Interface L2TP Client";
+			return "No Interface L2TP Client With This id = ".$id;
 		}
+	}
+	 
+	/**
+	 * This method used for delete l2tp client
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function delete_l2tp_client($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/l2tp-client/remove");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
 	}
 }
 

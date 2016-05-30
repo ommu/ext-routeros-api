@@ -2,6 +2,9 @@
 /**
  * Description of Mapi_Interface_Vlan
  *
+ * TOC :
+ *	get_all_address
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -23,27 +26,11 @@ class MInterfacevlan {
 	}
 	
 	/**
-	 * This method is used to add vlan
-	 * @param type $param array
-	 * @return type array
-	 * 
-	 */
-	 public function add_vlan($param) {
-		$sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/vlan/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	 /**
 	 * This method is used to display all vlan
 	 * @return type array
 	 * 
 	 */
-	 public function get_all_vlan() {
+	public function get_all_vlan() {
 		$sentence = new SentenceUtil();
 		$sentence->fromCommand("/interface/vlan/getall");
 		$this->talker->send($sentence);
@@ -56,6 +43,22 @@ class MInterfacevlan {
 		}
 	}
 	
+	/**
+	 * This method is used to add vlan
+	 * @param type $param array
+	 * @return type array
+	 * 
+	 */
+	public function add_vlan($param) {
+		$sentence = new SentenceUtil();
+	   $sentence->addCommand("/interface/vlan/add");
+	   foreach ($param as $name => $value){
+			   $sentence->setAttribute($name, $value);
+	   }	   
+	   $this->talker->send($sentence);
+	   return "Sucsess";
+	}
+	
 	 
 	/**
 	 * This method is used to enable vlan by id
@@ -63,7 +66,7 @@ class MInterfacevlan {
 	 * @return type array
 	 * 
 	 */
-	 public function enable_vlan($id) {
+	public function enable_vlan($id) {
 		$sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/vlan/enable");
 		$sentence->where(".id", "=", $id);
@@ -77,23 +80,9 @@ class MInterfacevlan {
 	 * @return type array
 	 * 
 	 */
-	 public function disable_vlan($id) {
+	public function disable_vlan($id) {
 		$sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/vlan/disable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to delete vlan by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	 public function delete_vlan($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/vlan/remove");
 		$sentence->where(".id", "=", $id);
 		$enable = $this->talker->send($sentence);
 		return "Sucsess";
@@ -106,7 +95,7 @@ class MInterfacevlan {
 	 * @return type array
 	 * 
 	 */
-	  public function set_vlan($param, $id) {
+	public function set_vlan($param, $id) {
 		$sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/vlan/set");
 		foreach ($param as $name => $value){
@@ -117,14 +106,14 @@ class MInterfacevlan {
 		return "Sucsess";
 	}	 
 	
-	 /**
+	/**
 	 * This method is used to display one vlan
 	 * in detail based on the id
 	 * @param type $id string
 	 * @return type array
 	 * 
 	 */
-	 public function detail_vlan($id) {
+	public function detail_vlan($id) {
 		$sentence = new SentenceUtil();
 		$sentence->fromCommand("/interface/vlan/print");
 		$sentence->where(".id", "=", $id);
@@ -136,6 +125,20 @@ class MInterfacevlan {
 		}  else {
 			return "No Interface VLAN With This id = ".$id;
 		}
+	}
+	
+	/**
+	 * This method is used to delete vlan by id
+	 * @param type $id string
+	 * @return type array
+	 * 
+	 */
+	public function delete_vlan($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/vlan/remove");
+		$sentence->where(".id", "=", $id);
+		$enable = $this->talker->send($sentence);
+		return "Sucsess";
 	}
 }
 

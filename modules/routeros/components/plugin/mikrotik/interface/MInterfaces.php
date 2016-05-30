@@ -2,6 +2,23 @@
 /**
  * Description of Mapi Interfaces
  *
+ * TOC :
+ *	ethernet
+ *	pppoe_client
+ *	pppoe_server
+ *	eoip
+ *	ipip
+ *	vlan
+ *	vrrp
+ *	bonding
+ *	bridge
+ *	l2tp_client
+ *	l2tp_server
+ *	ppp_client
+ *	ppp_server
+ *	pptp_client
+ *	pptp_server 
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -40,7 +57,7 @@ class MInterfaces {
 		$this->_conn = $conn;
 	}
 	
-	 /**
+	/**
 	 * This method is used to call class Mapi_Interface_Ethetrnet
 	 * @return Mapi_Ip 
 	 */

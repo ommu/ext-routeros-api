@@ -2,6 +2,9 @@
 /**
  * Description of Mapi_Interface_Eoip
  *
+ * TOC :
+ *	get_all_address
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -20,6 +23,27 @@ class MInterfaceeoip {
 	function __construct($talker, $conn) {
 		$this->talker = $talker;
 		$this->_conn = $conn;
+	}
+	
+	/**
+	 * This method is used to display all interface eoip
+	 * 
+	 * Example :
+	 * 
+	 * print_r($this->mikrotik_api->interfaces()->eoip()->get_all_eoip());
+	 * @return type array
+	 */
+	public function get_all_eoip() {
+		$sentence = new SentenceUtil();
+		$sentence->fromCommand("/interface/eoip/getall");
+		$this->talker->send($sentence);
+		$rs = $this->talker->getResult();
+		$i = 0 ;
+		if ($i < $rs->size()){
+			return $rs->getResultArray();
+		}  else {
+			return "No Interface EOIP To Set, Please Your Add Interface EOIP";
+		}
 	}
 	
 	/**
@@ -44,7 +68,7 @@ class MInterfaceeoip {
 	 * @param type $param array
 	 * @return type array
 	 */
-	 public function add_eoip($param) {
+	public function add_eoip($param) {
 	   $sentence = new SentenceUtil();
 	   $sentence->addCommand("/interface/eoip/add");
 	   foreach ($param as $name => $value){
@@ -52,27 +76,6 @@ class MInterfaceeoip {
 	   }	   
 	   $this->talker->send($sentence);
 	   return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to display all interface eoip
-	 * 
-	 * Example :
-	 * 
-	 * print_r($this->mikrotik_api->interfaces()->eoip()->get_all_eoip());
-	 * @return type array
-	 */
-	 public function get_all_eoip() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/eoip/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface EOIP To Set, Please Your Add Interface EOIP";
-		}
 	}
 	
 	/**
@@ -84,7 +87,7 @@ class MInterfaceeoip {
 	 * @param type $id string
 	 * @return type array
 	 */
-	 public function enable_eoip($id) {
+	public function enable_eoip($id) {
 		$sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/eoip/enable");
 		$sentence->where(".id", "=", $id);
@@ -101,26 +104,9 @@ class MInterfaceeoip {
 	 * @param type $id string
 	 * @return type array
 	 */
-	 public function disable_eoip($id) {
+	public function disable_eoip($id) {
 		$sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/eoip/disable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
-	}
-	
-	/**
-	 * This method is used to remove interface eoip by id
-	 * 
-	 * Example :
-	 * 
-	 * $this->mikrotik_api->interfaces()->eoip()->delete_eoip('*1');
-	 * @param type $id string
-	 * @return type array
-	 */
-	 public function delete_eoip($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/eoip/remove");
 		$sentence->where(".id", "=", $id);
 		$enable = $this->talker->send($sentence);
 		return "Sucsess";
@@ -148,7 +134,7 @@ class MInterfaceeoip {
 	 * @param type $id string
 	 * @return type array
 	 */
-	  public function set_eoip($param, $id) {
+	public function set_eoip($param, $id) {
 		$sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/eoip/set");
 		foreach ($param as $name => $value){
@@ -169,7 +155,7 @@ class MInterfaceeoip {
 	 * @param type $id string
 	 * @return type array
 	 */
-	 public function detail_eoip($id) {
+	public function detail_eoip($id) {
 		$sentence = new SentenceUtil();
 		$sentence->fromCommand("/interface/eoip/print");
 		$sentence->where(".id", "=", $id);
@@ -181,5 +167,22 @@ class MInterfaceeoip {
 		}  else {
 			return "No Interface EOIP With This id = ".$id;
 		}
+	}
+	
+	/**
+	 * This method is used to remove interface eoip by id
+	 * 
+	 * Example :
+	 * 
+	 * $this->mikrotik_api->interfaces()->eoip()->delete_eoip('*1');
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function delete_eoip($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/eoip/remove");
+		$sentence->where(".id", "=", $id);
+		$enable = $this->talker->send($sentence);
+		return "Sucsess";
 	}
 }

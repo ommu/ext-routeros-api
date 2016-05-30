@@ -2,6 +2,9 @@
 /**
  * Description of Mapi_Interface_Pppoe_Client
  *
+ * TOC :
+ *	get_all_address
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -23,22 +26,6 @@ class MInterfacepppoeclient {
 	}
 	
 	/**
-	 * This method is used to add pppoe-client
-	 * @param type $param array
-	 * @return type array
-	 * 
-	 */
-	public function add_pppoe_client($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/pppoe-client/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
-	/**
 	 * This method is used to display all pppoe-client 
 	 * @return type array
 	 * 
@@ -54,6 +41,22 @@ class MInterfacepppoeclient {
 		}  else {
 			return "No Interface PPPoE-Client To Set, Please Your Add PPPoE-Client";
 		}
+	}
+	
+	/**
+	 * This method is used to add pppoe-client
+	 * @param type $param array
+	 * @return type array
+	 * 
+	 */
+	public function add_pppoe_client($param) {
+	   $sentence = new SentenceUtil();
+	   $sentence->addCommand("/interface/pppoe-client/add");
+	   foreach ($param as $name => $value){
+			   $sentence->setAttribute($name, $value);
+	   }	   
+	   $this->talker->send($sentence);
+	   return "Sucsess";
 	}
 	
 	/**
@@ -76,23 +79,9 @@ class MInterfacepppoeclient {
 	 * @return type array
 	 * 
 	 */
-	 public function disable_pppoe_client($id) {
+	public function disable_pppoe_client($id) {
 		$sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/pppoe-client/disable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
-   }
-	
-	/**
-	 * This method is used to delete pppoe-client by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	 public function delete_pppoe_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pppoe-client/remove");
 		$sentence->where(".id", "=", $id);
 		$enable = $this->talker->send($sentence);
 		return "Sucsess";
@@ -105,7 +94,7 @@ class MInterfacepppoeclient {
 	 * @return type array
 	 * 
 	 */
-	 public function set_pppoe_client($param, $id) {
+	public function set_pppoe_client($param, $id) {
 		$sentence = new SentenceUtil();
 		$sentence->addCommand("/interface/pppoe-client/set");
 		foreach ($param as $name => $value){
@@ -116,7 +105,7 @@ class MInterfacepppoeclient {
 		return "Sucsess";
 	}	 
 	
-	 /**
+	/**
 	 * This method is used to display one pppoe-client
 	 * in detail based on the id
 	 * @param type $id string
@@ -135,6 +124,20 @@ class MInterfacepppoeclient {
 			return "No Interface PPPoE-Client With This id = ".$id;
 		}
 				
+	}
+	
+	/**
+	 * This method is used to delete pppoe-client by id
+	 * @param type $id string
+	 * @return type array
+	 * 
+	 */
+	public function delete_pppoe_client($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/pppoe-client/remove");
+		$sentence->where(".id", "=", $id);
+		$enable = $this->talker->send($sentence);
+		return "Sucsess";
 	}
 }
 

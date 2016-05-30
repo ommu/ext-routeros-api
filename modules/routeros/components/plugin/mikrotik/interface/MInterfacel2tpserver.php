@@ -2,6 +2,9 @@
 /**
  * Description of Mapi_interface_l2tp_server
  *
+ * TOC :
+ *	get_all_address
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -23,6 +26,23 @@ class MInterfacel2tpserver {
 	}
 	
 	/**
+	 * This method used for get all l2tp server
+	 * @return type array
+	 */
+	public function get_all_l2tp_server() {
+		$sentence = new SentenceUtil();
+		$sentence->fromCommand("/interface/l2tp-server/getall");
+		$this->talker->send($sentence);
+		$rs = $this->talker->getResult();
+		$i = 0 ;
+		if ($i < $rs->size()){
+			return $rs->getResultArray();
+		}  else {
+			return "No Interface L2TP Server To Set, Please Your Add Interface L2TP Server";
+		}
+	}
+	
+	/**
 	 * This method used for add new l2tp server
 	 * @param type $param array
 	 * @return type array
@@ -35,19 +55,6 @@ class MInterfacel2tpserver {
 	   }	   
 	   $this->talker->send($sentence);
 	   return "Sucsess";
-	}
-	
-	/**
-	 * This method used for disable l2tp server
-	 * @param type $id string
-	 * @return type array
-	 */
-	public function disable_l2tp_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/l2tp-server/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
 	}
 	
 	/**
@@ -64,13 +71,30 @@ class MInterfacel2tpserver {
 	}
 	
 	/**
-	 * This method used for delete l2tp server
+	 * This method used for disable l2tp server
 	 * @param type $id string
 	 * @return type array
 	 */
-	public function delete_l2tp_server($id) {
+	public function disable_l2tp_server($id) {
 		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/l2tp-server/remove");
+		$sentence->addCommand("/interface/l2tp-server/disable");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";
+	}
+	
+	/**
+	 * This method used for set or edit l2tp server
+	 * @param type $param array
+	 * @param type $id string
+	 * @return type array
+	 */
+	public function set_l2tp_server($param, $id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/l2tp-server/set");
+		foreach ($param as $name => $value){
+				$sentence->setAttribute($name, $value);
+		 }
 		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
 		return "Sucsess";
@@ -96,37 +120,16 @@ class MInterfacel2tpserver {
 	}
 	
 	/**
-	 * This method used for set or edit l2tp server
-	 * @param type $param array
+	 * This method used for delete l2tp server
 	 * @param type $id string
 	 * @return type array
 	 */
-	public function set_l2tp_server($param, $id) {
+	public function delete_l2tp_server($id) {
 		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/l2tp-server/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
+		$sentence->addCommand("/interface/l2tp-server/remove");
 		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
 		return "Sucsess";
-	}
-	
-	/**
-	 * This method used for get all l2tp server
-	 * @return type array
-	 */
-	public function get_all_l2tp_server() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/l2tp-server/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface L2TP Server To Set, Please Your Add Interface L2TP Server";
-		}
 	}
 	
 	/**

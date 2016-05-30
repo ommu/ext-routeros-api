@@ -2,6 +2,9 @@
 /**
  * Description of Mapi_Interface_Pppoe_Server
  *
+ * TOC :
+ *	get_all_address
+ *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 26 May 2016, 15:15 WIB
@@ -23,6 +26,24 @@ class MInterfacepppoeserver {
 	}
 	
 	/**
+	 * This method is used to display all pppoe-server
+	 * @return type array
+	 * 
+	 */
+	public function get_all_pppoe_server() {
+		$sentence = new SentenceUtil();
+		$sentence->fromCommand("/interface/pppoe-server/server/getall");
+		$this->talker->send($sentence);
+		$rs = $this->talker->getResult();
+		$i = 0 ;
+		if ($i < $rs->size()){
+			return $rs->getResultArray();
+		}  else {
+			return "No Interface PPPoE-Server To Set, Please Your Add Interface PPPoE-Server";
+		}
+	}
+	
+	/**
 	 * This method is used to add pppoe-server
 	 * @param type $param array
 	 * @return type array
@@ -36,6 +57,20 @@ class MInterfacepppoeserver {
 	   }	   
 	   $this->talker->send($sentence);
 	   return "Sucsess";
+	}
+	
+	/**
+	 * This method is used to enable pppoe-server by id
+	 * @param type $id string
+	 * @return type array
+	 * 
+	 */
+	public function enable_pppoe_server($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/pppoe-server/server/enable");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";		
 	}
 	
 	/**
@@ -53,20 +88,6 @@ class MInterfacepppoeserver {
 	}
 	
 	/**
-	 * This method is used to enable pppoe-server by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	public function enable_pppoe_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pppoe-server/server/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";		
-	}
-	
-	 /**
 	 * This method is used to set or edit by id
 	 * @param type $param array
 	 * @param type $id string
@@ -85,38 +106,6 @@ class MInterfacepppoeserver {
 	}
 	
 	/**
-	 * This method is used to delete pppoe-server by id
-	 * @param type $id string
-	 * @return type array
-	 * 
-	 */
-	public function delete_pppoe_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pppoe-server/server/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";		
-	}
-	
-	/**
-	 * This method is used to display all pppoe-server
-	 * @return type array
-	 * 
-	 */
-	public function get_all_pppoe_server() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/pppoe-server/server/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface PPPoE-Server To Set, Please Your Add Interface PPPoE-Server";
-		}
-	}
-	
-	 /**
 	 * This method is used to display one pppoe-server 
 	 * in detail based on the id
 	 * @param type $id string
@@ -135,6 +124,20 @@ class MInterfacepppoeserver {
 		}  else {
 			return "No Interface PPPoE-Server With This id = ".$id;
 		}
+	}
+	
+	/**
+	 * This method is used to delete pppoe-server by id
+	 * @param type $id string
+	 * @return type array
+	 * 
+	 */
+	public function delete_pppoe_server($id) {
+		$sentence = new SentenceUtil();
+		$sentence->addCommand("/interface/pppoe-server/server/remove");
+		$sentence->where(".id", "=", $id);
+		$this->talker->send($sentence);
+		return "Sucsess";		
 	}
 }
 
