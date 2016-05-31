@@ -3,7 +3,15 @@
  * Description of Mapi_System
  *
  * TOC :
- *	get_all_address
+ *	get_all_clock
+ *	get_all_identity
+ *	set_identity
+ *	get_all_history
+ *	get_all_license
+ *	reset
+ *	get_all_routerboard
+ *	save_backup
+ *	load_backup 
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -74,7 +82,7 @@ class Msystem {
 	
 	/**
 	 * This method is used to display all system license
-	 * @param
+	 * @attr
 	 *	URL: http://wiki.mikrotik.com/wiki/Manual:License#RouterBOARD_and_PC_license
 	 *
 	 * @return type array
