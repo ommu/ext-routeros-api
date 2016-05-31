@@ -3,7 +3,25 @@
  * Description of Mapi_interface_Bridge
  *
  * TOC :
- *	get_all_address
+ *	Bridge Interface Setup
+ *	  get_all_bridge
+ *	  add_bridge
+ *	  enable_bridge
+ *	  disable_bridge
+ *	  set_bridge
+ *	  detail_bridge
+ *	  delete_bridge
+ *	Bridge NAT
+ *	  get_all_bridge_nat
+ *	  add_bridge_nat
+ *	  enable_bridge_nat
+ *	  disable_bridge_nat
+ *	  set_bridge_nat
+ *	  detail_bridge_nat
+ *	  delete_bridge_nat
+ *	Bridge Settings
+ *	  get_all_bridge_settings
+ *	  set_bridge_settings 
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -27,66 +45,64 @@ class MInterfacebridge {
 	
 	/**
 	 * This method used for get all interface bridge
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_Interface_Setup
+	 *
 	 * @return type array
 	 */
 	public function get_all_bridge() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/bridge/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/bridge/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface Bridge To Set, Please Your Add Interface Bridge";
-		}
 	}
 	
 	/**
 	 * This method used for add new interface bridge
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_Interface_Setup
+	 *
 	 * @return type array
 	 */
 	public function add_bridge($param) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/add");
-		foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-		}	   
-		$this->talker->send($sentence);
-		return "Sucsess";
+		$this->_conn->comm("/interface/bridge/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for enable interface bridge
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_Interface_Setup
+	 *
 	 * @return type array
 	 */
-	public function enable_bridge($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_bridge($param) {
+		$this->_conn->comm("/interface/bridge/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for disable interface bridge
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_Interface_Setup
+	 *
 	 * @return type array
 	 */
-	public function disable_bridge($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_bridge($param) {
+		$this->_conn->comm("/interface/bridge/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for set or edit interface bridge
-	 * @param type $param array
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_Interface_Setup
+	 *
 	 * @return type array
 	 */
 	public function set_bridge($param, $id) {
@@ -102,97 +118,93 @@ class MInterfacebridge {
 	
 	/**
 	 * This method used for detail interface bridge
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_Interface_Setup
+	 *
 	 * @return type array
 	 */
-	public function detail_bridge($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/bridge/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface Bridge With This id = ".$id;
-		}
+	public function detail_bridge($param) {
+		$array = $this->_conn->comm("/interface/bridge/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface Bridge With This id = ".$param;
 	}
 	
 	/**
 	 * This method used for delete interface bridge
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_Interface_Setup
+	 *
 	 * @return type array
 	 */
-	public function delete_bridge($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function delete_bridge($param) {
+		$this->_conn->comm("/interface/bridge/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for get all interface bridge
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_NAT
+	 *
 	 * @return type array
 	 */
 	public function get_all_bridge_nat() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/bridge/nat/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/bridge/nat/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface Bridge NAT To Set, Please Your Add Interface Bridge NAT";
-		}
 	}
 	
 	/**
 	 * This method used for get all interface bridge
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_NAT
+	 *
 	 * @return type array
 	 */
 	public function add_bridge_nat($param) {
-		 $sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/bridge/nat/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+		$this->_conn->comm("/interface/bridge/nat/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for enable interface bridge
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_NAT
+	 *
 	 * @return type array
 	 */
-	public function enable_bridge_nat($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/nat/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_bridge_nat($param) {
+		$this->_conn->comm("/interface/bridge/nat/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for disable interface bridge
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_NAT
+	 *
 	 * @return type array
 	 */
-	public function disable_bridge_nat($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/nat/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_bridge_nat($param) {
+		$this->_conn->comm("/interface/bridge/nat/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for set or edit interface bridge
-	 * @param type $param array
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_NAT
+	 *
 	 * @return type array
 	 */
 	public function set_bridge_nat($param, $id) {
@@ -208,69 +220,60 @@ class MInterfacebridge {
 	
 	/**
 	 * This method used for detail interface bridge
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_NAT
+	 *
 	 * @return type array
 	 */
-	public function detail_bridge_nat($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/bridge/nat/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface Bridge NAT With This id = ".$id;
-		}
+	public function detail_bridge_nat($param) {
+		$array = $this->_conn->comm("/interface/bridge/nat/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface Bridge NAT With This id = ".$param;
 	}
 	
 	/**
 	 * This method used for delete interface bridge
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_NAT
+	 *
 	 * @return type array
 	 */
-	public function delete_bridge_nat($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/nat/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function delete_bridge_nat($param) {
+		$this->_conn->comm("/interface/bridge/nat/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for get all interface Bridge Settings
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_Settings
+	 *
 	 * @return type array
 	 */
 	public function get_all_bridge_settings() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/bridge/settings/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/bridge/settings/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface Bridge Settings To Set, Please Your Add Interface Bridge Settings";
-		}
-		return $this->query('');
 	}
 	
 	/**
 	 * This method used for set interface Bridge Settings
-	 * @param type $use_ip_firewall string (default : yes or no)
-	 * @param type $use_ip_firewall_for_vlan string (default : yes or no)
-	 * @param type $use_ip_firewall_for_pppoe string (default : yes or no)
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Bridge#Bridge_Settings
+	 *
 	 * @return type array
 	 */
-	public function set_bridge_settings($use_ip_firewall, $use_ip_firewall_for_vlan, $use_ip_firewall_for_pppoe) {
-	   $sentence = new SentenceUtil();
-	   $sentence->fromCommand("/interface/bridge/settings/set");
-	   $sentence->setAttribute("use-ip-firewall", $use_ip_firewall);
-	   $sentence->setAttribute("use-ip-firewall-for-vlan", $use_ip_firewall_for_vlan);
-	   $sentence->setAttribute("use-ip-firewall-for-pppoe", $use_ip_firewall_for_pppoe);
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+	public function set_bridge_settings($param) {
+		$this->_conn->comm("/interface/bridge/settings/set", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
 

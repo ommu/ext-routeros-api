@@ -3,7 +3,13 @@
  * Description of Mapi_Interface_Ipip
  *
  * TOC :
- *	get_all_address
+ *	get_all_ipip
+ *	add_ipip
+ *	enable_ipip
+ *	disable_ipip
+ *	set_ipip
+ *	detail_ipip
+ *	delete_ipip 
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -27,67 +33,65 @@ class MInterfaceipip {
 	
 	/**
 	 * This method is used to display all interface ipip
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/IPIP
+	 *
 	 * @return type array
 	 */
 	public function get_all_ipip() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/ipip/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/ipip/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface IPIP To Set, Please Your Add Interface IPIP";
-		}
 	}
 	 
 	/**
 	 * This method is used to add interface ipip
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/IPIP
+	 *
 	 * @return type array
 	 */
 	public function add_ipip($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/ipip/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+		$this->_conn->comm("/interface/ipip/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to enable interface ipip by id
-	 * @param type $id string
+	 * This method is used to enable interface ipip
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/IPIP
+	 *
 	 * @return type array
 	 */
-	public function enable_ipip($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ipip/enable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_ipip($param) {
+		$this->_conn->comm("/interface/ipip/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to disable interface ipip by id
-	 * @param type $id string
+	 * This method is used to disable interface ipip
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/IPIP
+	 *
 	 * @return type array
 	 */
-	public function disable_ipip($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ipip/disable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_ipip($param) {
+		$this->_conn->comm("/interface/ipip/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to set or edit interface ipip by id
-	 * @param type $param array
-	 * @param type $id string
-	 * @return type 
+	 * This method is used to set or edit interface ipip
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/IPIP
+	 *
+	 * @return type array
 	 */
 	public function set_ipip($param, $id) {
 		$sentence = new SentenceUtil();
@@ -101,36 +105,31 @@ class MInterfaceipip {
 	}	 
 	
 	/**
-	 * This method is used to display one interface ipip 
-	 * in detail based on the id
-	 * @param type $id string
+	 * This method is used to display one interface ipip in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/IPIP
+	 *
 	 * @return type array
 	 */
-	public function detail_ipip($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/ipip/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface IPIP With This id = ".$id;
-		}
-				
+	public function detail_ipip($param) {
+		$array = $this->_conn->comm("/interface/ipip/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface IPIP With This id = ".$param;
 	}
 	
 	/**
 	 * This method is used to remove interface ipip
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/IPIP
+	 *
 	 * @return type array
 	 */
-	public function delete_ipip($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ipip/remove");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function delete_ipip($param) {
+		$this->_conn->comm("/interface/ipip/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }

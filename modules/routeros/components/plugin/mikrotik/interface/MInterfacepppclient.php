@@ -3,7 +3,13 @@
  * Description of Mapi_interface_ppp_client
  *
  * TOC :
- *	get_all_address
+ *	get_all_ppp_client
+ *	add_ppp_client
+ *	enable_ppp_client
+ *	disable_ppp_client
+ *	set_ppp_client
+ *	detail_ppp_client
+ *	delete_ppp_client 
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -27,66 +33,64 @@ class MInterfacepppclient {
 	
 	/**
 	 * This method used for get all interface ppp-client
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPP
+	 *
 	 * @return type array
 	 */
 	public function get_all_ppp_client() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/ppp-client/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/ppp-client/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface PPP Client To Set, Please Your Add Interface PPP Client";
-		}
 	}
 	
 	/**
 	 * This method used for add new interface ppp-client
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPP
+	 *
 	 * @return type array
 	 */
 	public function add_ppp_client($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/ppp-client/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+		$this->_conn->comm("/interface/ppp-client/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for enable interface ppp-client
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPP
+	 *
 	 * @return type array
 	 */
-	public function enable_ppp_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ppp-client/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_ppp_client($param) {
+		$this->_conn->comm("/interface/ppp-client/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for disable interface ppp-client
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPP
+	 *
 	 * @return type array
 	 */
-	public function disable_ppp_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ppp-client/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_ppp_client($param) {
+		$this->_conn->comm("/interface/ppp-client/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for set or edit interface ppp-client
-	 * @param type $param array
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPP
+	 *
 	 * @return type array
 	 */
 	public function set_ppp_client($param, $id) {
@@ -102,34 +106,31 @@ class MInterfacepppclient {
 	
 	/**
 	 * This method used for detail interface ppp-client
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPP
+	 *
 	 * @return type array
 	 */
-	public function detail_ppp_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/ppp-client/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface PPP Client With This id = ".$id;
-		}
+	public function detail_ppp_client($param) {
+		$array = $this->_conn->comm("/interface/ppp-client/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface PPP Client With This id = ".$param;
 	}
 	
 	/**
 	 * This method used for delete interface ppp-client
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPP
+	 *
 	 * @return type array
 	 */
-	public function delete_ppp_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ppp-client/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function delete_ppp_client($param) {
+		$this->_conn->comm("/interface/ppp-client/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
 

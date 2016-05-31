@@ -3,7 +3,11 @@
  * Description of Mapi_File
  *
  * TOC :
- *	get_all_address
+ *	get_all_interface
+ *	enable_interface
+ *	disable_interface
+ *	set_interface
+ *	detail_interface 
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -27,47 +31,55 @@ class MInterfaceethernet {
 	 
 	/**
 	 * This method is used to display all interface
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Ethernet
+	 *
 	 * @return type array
 	 */
 	public function get_all_interface() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		return $rs->getResultArray();
+		$array = $this->_conn->comm("/interface/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return false;
 	}
 	
 	/**
-	 * This method is used to enable interface by id
-	 * @param type $id string
+	 * This method is used to enable interface
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Ethernet
+	 *
 	 * @return type array
 	 */
-	public function enable_interface($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/enable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_interface($param) {
+		$this->_conn->comm("/interface/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to disable interface by id
-	 * @param type $id string
+	 * This method is used to disable interface
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Ethernet
+	 *
 	 * @return type array
 	 */
-	public function disable_interface($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/disable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_interface($param) {
+		$this->_conn->comm("/interface/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to display one interface  
-	 * in detail based on the id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to display one interface in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Ethernet
+	 *
 	 * @return type array
 	 */
 	public function set_interface($param, $id) {
@@ -82,23 +94,19 @@ class MInterfaceethernet {
 	}
 	
 	/**
-	 * This method is used to display one interafce 
-	 * in detail based on the id
-	 * @param type $id string
+	 * This method is used to display one interafce in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/Ethernet
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function detail_interface($id) {
-	   $sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface Ethernet With This id = ".$id;
-		}
+	public function detail_interface($param) {
+		$array = $this->_conn->comm("/interface/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface Ethernet With This id = ".$param;
 	}
 }

@@ -3,7 +3,17 @@
  * Description of Mapi_Interface_Pptp_Server
  *
  * TOC :
- *	get_all_address
+ *	PPTP Server
+ *	  get_all_pptp_server
+ *	  add_pptp_server
+ *	  enable_pptp_server
+ *	  disable_pptp_server
+ *	  set_pptp_server
+ *	  detail_pptp_server
+ *	  delete_pptp_server
+ *	Server configuration
+ *	  get_all_pptp_server_server
+ *	  set_pptp_server_server
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -27,66 +37,64 @@ class MInterfacepptpserver {
 	
 	/**
 	 * This method used for get all interface pptp-server
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Server
+	 *
 	 * @return type array
 	 */
 	public function get_all_pptp_server() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/pptp-server/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/pptp-server/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface PPTP Server To Set, Please Your Add Interface PPTP Server";
-		}
 	}
 	
 	/**
 	 * This method used for add new interface pptp-server
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Server
+	 *
 	 * @return type array
 	 */
-	public function add_pptp_server($param){
-		$sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/pptp-server/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+	public function add_pptp_server($param) {
+		$this->_conn->comm("/interface/pptp-server/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for enable interface pptp-server
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Server
+	 *
 	 * @return type array
 	 */
-	public function enable_pptp_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pptp-server/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_pptp_server($param) {
+		$this->_conn->comm("/interface/pptp-server/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for disable interface pptp-server
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Server
+	 *
 	 * @return type array
 	 */
-	public function disable_pptp_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pptp-server/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_pptp_server($param) {
+		$this->_conn->comm("/interface/pptp-server/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for set or edit interface pptp-server
-	 * @param type $param array
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Server
+	 *
 	 * @return type array
 	 */
 	public function set_pptp_server($param, $id) {
@@ -102,65 +110,59 @@ class MInterfacepptpserver {
 	
 	/**
 	 * This method used for detail interface pptp-server
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Server
+	 *
 	 * @return type array
 	 */
-	public function detail_pptp_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/pptp-server/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface PPTP Server With This id = ".$id;
-		}
+	public function detail_pptp_server($param) {
+		$array = $this->_conn->comm("/interface/pptp-server/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface PPTP Server With This id = ".$param;
 	}
 	
 	/**
 	 * This method used for delete interface pptp-server
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Server
+	 *
 	 * @return type array
 	 */
-	public function delete_pptp_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pptp-server/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function delete_pptp_server($param) {
+		$this->_conn->comm("/interface/pptp-server/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for get all pptp-server server
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#Server_configuration
+	 *
 	 * @return type array
 	 */
 	public function get_all_pptp_server_server() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("//interface/pptp-server/server/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/pptp-server/server/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface PPTP Server Server To Set, Please Your Add Interface PPTP Server Server";
-		}
 	}
 	
 	/**
 	 * This method used for set pptp-server server
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#Server_configuration
+	 *
 	 * @return type array
 	 */
 	public function set_pptp_server_server($param) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pptp-server/server/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$this->talker->send($sentence);
-		return "Sucsess";		
+		$this->_conn->comm("/interface/pptp-server/server/set", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }

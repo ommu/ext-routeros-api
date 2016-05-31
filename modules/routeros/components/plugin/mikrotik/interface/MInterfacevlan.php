@@ -3,7 +3,13 @@
  * Description of Mapi_Interface_Vlan
  *
  * TOC :
- *	get_all_address
+ *	get_all_vlan
+ *	add_vlan
+ *	enable_vlan
+ *	disable_vlan
+ *	set_vlan
+ *	detail_vlan
+ *	delete_vlan 
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -27,73 +33,65 @@ class MInterfacevlan {
 	
 	/**
 	 * This method is used to display all vlan
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VLAN
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function get_all_vlan() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/vlan/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/vlan/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface VLAN To Set, Please Your Add Ip Address";
-		}
 	}
 	
 	/**
 	 * This method is used to add vlan
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VLAN
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function add_vlan($param) {
-		$sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/vlan/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
-	}
-	
+		$this->_conn->comm("/interface/vlan/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
+	}	
 	 
 	/**
 	 * This method is used to enable vlan by id
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VLAN
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function enable_vlan($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/vlan/enable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_vlan($param) {
+		$this->_conn->comm("/interface/vlan/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to disable vlan by id
-	 * @param type $id string
+	 * This method is used to disable vlan
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VLAN
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function disable_vlan($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/vlan/disable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_vlan($param) {
+		$this->_conn->comm("/interface/vlan/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to set or edit by id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to set or edit
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VLAN
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function set_vlan($param, $id) {
 		$sentence = new SentenceUtil();
@@ -107,38 +105,32 @@ class MInterfacevlan {
 	}	 
 	
 	/**
-	 * This method is used to display one vlan
-	 * in detail based on the id
-	 * @param type $id string
+	 * This method is used to display one vlan in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VLAN
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function detail_vlan($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/vlan/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface VLAN With This id = ".$id;
-		}
+	public function detail_vlan($param) {
+		$array = $this->_conn->comm("/interface/vlan/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface VLAN With This id = ".$param;
 	}
 	
 	/**
-	 * This method is used to delete vlan by id
-	 * @param type $id string
+	 * This method is used to delete vlan
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VLAN
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function delete_vlan($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/vlan/remove");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function delete_vlan($param) {
+		$this->_conn->comm("/interface/vlan/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
 

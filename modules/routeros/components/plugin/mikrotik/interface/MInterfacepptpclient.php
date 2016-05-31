@@ -3,7 +3,13 @@
  * Description of Mapi_interface_pptp_client
  *
  * TOC :
- *	get_all_address
+ *	get_all_pptp_client
+ *	add_pptp_client
+ *	enable_pptp_client
+ *	disable_pptp_client
+ *	set_pptp_client
+ *	detail_pptp_client
+ *	delete_pptp_client 
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -27,66 +33,64 @@ class MInterfacepptpclient {
 	
 	/**
 	 * This method used for get all interface pptp-client
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Client
+	 *
 	 * @return type array
 	 */
 	public function get_all_pptp_client() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/pptp-client/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/pptp-client/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface PPTP Client To Set, Please Your Add Interface PPTP Client";
-		}
 	}
 	
 	/**
 	 * This method used for add new interface pptp-client
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Client
+	 *
 	 * @return type array
 	 */
 	public function add_pptp_client($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/pptp-client/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+		$this->_conn->comm("/interface/pptp-client/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for enable interface pptp-client
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Client
+	 *
 	 * @return type array
 	 */
-	public function enable_pptp_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pptp-client/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_pptp_client($param) {
+		$this->_conn->comm("/interface/pptp-client/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for disable interface pptp-client
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Client
+	 *
 	 * @return type array
 	 */
-	public function disable_pptp_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pptp-client/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_pptp_client($param) {
+		$this->_conn->comm("/interface/pptp-client/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for set or edit interface pptp-client
-	 * @param type $param array
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Client
+	 *
 	 * @return type array
 	 */
 	public function set_pptp_client($param, $id) {
@@ -102,34 +106,31 @@ class MInterfacepptpclient {
 	
 	/**
 	 * This method used for detail interface pptp-client
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Client
+	 *
 	 * @return type array
 	 */
-	public function detail_pptp_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/pptp-client/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface PPTP Client With This id = ".$id;
-		}
+	public function detail_pptp_client($param) {
+		$array = $this->_conn->comm("/interface/pptp-client/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface PPTP Client With This id = ".$param;
 	}
 	
 	/**
 	 * This method used for delete interface pptp-client
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPTP#PPTP_Client
+	 *
 	 * @return type array
 	 */
-	public function delete_pptp_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pptp-client/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function delete_pptp_client($param) {
+		$this->_conn->comm("/interface/pptp-client/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
 

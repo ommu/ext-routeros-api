@@ -26,73 +26,66 @@ class MInterfacepppoeclient {
 	}
 	
 	/**
-	 * This method is used to display all pppoe-client 
+	 * This method is used to display all pppoe-client
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Client
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function get_all_pppoe_client() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/pppoe-client/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/pppoe-client/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface PPPoE-Client To Set, Please Your Add PPPoE-Client";
-		}
 	}
 	
 	/**
 	 * This method is used to add pppoe-client
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Client
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function add_pppoe_client($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/pppoe-client/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+		$this->_conn->comm("/interface/pppoe-client/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to enable pppoe-client by id
-	 * @param type $id string
+	 * This method is used to enable pppoe-client
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Client
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function enable_pppoe_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pppoe-client/enable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_pppoe_client($param) {
+		$this->_conn->comm("/interface/pppoe-client/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to disable pppoe-client by id
-	 * @param type $id string
+	 * This method is used to disable pppoe-client
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Client
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function disable_pppoe_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pppoe-client/disable");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_pppoe_client($param) {
+		$this->_conn->comm("/interface/pppoe-client/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
    
 	/**
-	 * This method is used to set or edit by id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to set or edit
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Client
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function set_pppoe_client($param, $id) {
 		$sentence = new SentenceUtil();
@@ -106,38 +99,32 @@ class MInterfacepppoeclient {
 	}	 
 	
 	/**
-	 * This method is used to display one pppoe-client
-	 * in detail based on the id
-	 * @param type $id string
+	 * This method is used to display one pppoe-client in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Client
+	 *
 	 * @return type array
 	 */
-	public function detail_pppoe_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/pppoe-client/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface PPPoE-Client With This id = ".$id;
-		}
-				
+	public function detail_pppoe_client($param) {
+		$array = $this->_conn->comm("/interface/pppoe-client/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface PPPoE-Client With This id = ".$param;
 	}
 	
 	/**
-	 * This method is used to delete pppoe-client by id
-	 * @param type $id string
+	 * This method is used to delete pppoe-client
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Client
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function delete_pppoe_client($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pppoe-client/remove");
-		$sentence->where(".id", "=", $id);
-		$enable = $this->talker->send($sentence);
-		return "Sucsess";
+	public function delete_pppoe_client($param) {
+		$this->_conn->comm("/interface/pppoe-client/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
 

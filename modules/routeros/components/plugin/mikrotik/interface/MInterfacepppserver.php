@@ -3,7 +3,13 @@
  * Description of Mapi_interface_ppp_server
  *
  * TOC :
- *	get_all_address
+ *	get_all_ppp_server
+ *	add_ppp_server
+ *	enable_ppp_server
+ *	disable_ppp_server
+ *	set_ppp_server
+ *	detail_ppp_server
+ *	delete_ppp_server 
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -27,66 +33,64 @@ class MInterfacepppserver {
 	
 	/**
 	 * This method used for get all interface ppp-sever
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Server
+	 *
 	 * @return type array
 	 */
 	public function get_all_ppp_server() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/ppp-server/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/ppp-server/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface PPP Server To Set, Please Your Add Interface PPP Server";
-		}
 	}
 	
 	/**
 	 * This method used for add new interface ppp-sever
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Server
+	 *
 	 * @return type array
 	 */
 	public function add_ppp_server($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/ppp-server/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+		$this->_conn->comm("/interface/ppp-server/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for enable interface ppp-sever
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Server
+	 *
 	 * @return type array
 	 */
-	public function enable_ppp_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ppp-server/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_ppp_server($param) {
+		$this->_conn->comm("/interface/ppp-server/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for disable interface ppp-sever
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Server
+	 *
 	 * @return type array
 	 */
-	public function disable_ppp_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ppp-server/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_ppp_server($param) {
+		$this->_conn->comm("/interface/ppp-server/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
 	 * This method used for set or edit interface ppp-sever
-	 * @param type $param array
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Server
+	 *
 	 * @return type array
 	 */
 	public function set_ppp_server($param, $id) {
@@ -102,33 +106,30 @@ class MInterfacepppserver {
 	
 	/**
 	 * This method used for detail interface ppp-sever
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Server
+	 *
 	 * @return type array
 	 */
-	public function detail_ppp_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/ppp-server/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface PPP Server With This id = ".$id;
-		}
+	public function detail_ppp_server($param) {
+		$array = $this->_conn->comm("/interface/ppp-server/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface PPP Server With This id = ".$param;
 	}
 	
 	/**
 	 * This method used for delete interface ppp-sever
-	 * @param type $id string
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/PPPoE#PPPoE_Server
+	 *
 	 * @return type array
 	 */
-	public function delete_ppp_server($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ppp-server/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function delete_ppp_server($param) {
+		$this->_conn->comm("/interface/ppp-server/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }

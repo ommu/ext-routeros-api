@@ -3,7 +3,13 @@
  * Description of Mapi_Interface_Vrrp
  *
  * TOC :
- *	get_all_address
+ *	get_all_vrrp
+ *	add_vrrp
+ *	enable_vrrp
+ *	disable_vrrp
+ *	set_vrrp
+ *	detail_vrrp
+ *	delete_vrrp 
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com> <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
@@ -27,72 +33,65 @@ class MInterfacevrrp {
 	
 	/**
 	 * This method is used to display all vrrp
+	 * @attr
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VRRP
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function get_all_vrrp() {
-		$sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/vrrp/getall");
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0 ;
-		if ($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
+		$array = $this->_conn->comm("/interface/vrrp/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
 			return "No Interface VRRP To Set, Please Your Add Interface VRRP";
-		}
 	}
 	
 	/**
 	 * This method is used to to add vrrp
-	 * @param type $param array
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VRRP
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function add_vrrp($param) {
-	   $sentence = new SentenceUtil();
-	   $sentence->addCommand("/interface/vrrp/add");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";
+		$this->_conn->comm("/interface/vrrp/add", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to to enable vrrp by id
-	 * @param type $id string
+	 * This method is used to to enable vrrp
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VRRP
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function enable_vrrp($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/vrrp/enable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function enable_vrrp($param) {
+		$this->_conn->comm("/interface/vrrp/enable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to to disable vrrp by id
-	 * @param type $id string
+	 * This method is used to to disable vrrp
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VRRP
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function disable_vrrp($id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/vrrp/disable");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function disable_vrrp($param) {
+		$this->_conn->comm("/interface/vrrp/disable", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 	
 	/**
-	 * This method is used to change based on the id
-	 * @param type $param array
-	 * @param type $id string
+	 * This method is used to change
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VRRP
+	 *
 	 * @return type array
-	 * 
 	 */
 	public function set_vrrp($param, $id) {
 		$sentence = new SentenceUtil();
@@ -106,37 +105,31 @@ class MInterfacevrrp {
 	}	 
 	
 	/**
-	 * This method is used to display one vrrp
-	 * in detail based on the id
-	 * @param type $id string
+	 * This method is used to display one vrrp in detail
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VRRP
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function detail_vrrp($id) {
-		 $sentence = new SentenceUtil();
-		$sentence->fromCommand("/interface/vrrp/print");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		$rs = $this->talker->getResult();
-		$i = 0;
-		if($i < $rs->size()){
-			return $rs->getResultArray();
-		}  else {
-			return "No Interface VRRP With This id = ".$id;
-		}
+	public function detail_vrrp($param) {
+		$array = $this->_conn->comm("/interface/vrrp/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return "No Interface VRRP With This id = ".$param;
 	}
 	
 	/**
-	 * This method is used to to delete vrrp by id
-	 * @param type $id string
+	 * This method is used to to delete vrrp
+	 * @param
+	 *	URL: http://wiki.mikrotik.com/wiki/Manual:Interface/VRRP
+	 *
 	 * @return type array
-	 * 
 	 */
-	public function delete_vrrp($id) {
-		 $sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/vrrp/remove");
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function delete_vrrp($param) {
+		$this->_conn->comm("/interface/vrrp/remove", $param);
+		$this->_conn->disconnect();
+		return "Success";
 	}
 }
