@@ -12,7 +12,7 @@
  *	LoadModel
  *	performAjaxValidation
  *
- * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 29 March 2016, 15:15 WIB
  * @link http://company.ommu.co
@@ -108,8 +108,10 @@ class TestController extends Controller
 		Yii::import('application.modules.routeros.components.plugin.*');
 		
 		$test = (new ORouterosAPI)->ip();
+		echo '<pre>';
 		print_r($test->hotspot()->get_all_hotspot_user());
-		echo '1';
+		//print_r($test->hotspot()->detail_hotspot(array('name'=>'hotspot1')));
+		echo '</pre>';
 	}
 	
 }
