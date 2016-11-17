@@ -14,20 +14,20 @@ defined('MIKROTIK_PATH') or define('MIKROTIK_PATH',dirname(__FILE__).DIRECTORY_S
 require_once MIKROTIK_PATH . 'routeros_api.class.php';
 
 //load child class interface
-require_once MIKROTIK_PATH . 'interface/MInterfaces.php';
-
-//load child class ip
-require_once MIKROTIK_PATH . 'ip/MIp.php';
+require_once MIKROTIK_PATH . 'interface/OInterfaces.php';
 
 //load child class ppp
-require_once MIKROTIK_PATH . 'ppp/MPpp.php';
+require_once MIKROTIK_PATH . 'ppp/OPpp.php';
 
-// load child class system
-require_once MIKROTIK_PATH . 'system/MSscheduler.php';
-require_once MIKROTIK_PATH . 'system/Msystem.php';
+//load child class ip
+require_once MIKROTIK_PATH . 'ip/OIp.php';
 
 //load child class file
-require_once MIKROTIK_PATH . 'file/MFile.php';
+require_once MIKROTIK_PATH . 'file/OFile.php';
+
+// load child class system
+require_once MIKROTIK_PATH . 'system/OSystem.php';
+require_once MIKROTIK_PATH . 'system/OSystemScheduler.php';
 
 class ORouterosAPI extends RouterosAPI
 {
@@ -42,56 +42,56 @@ class ORouterosAPI extends RouterosAPI
 	}
 	
 	/**
-	 * This method for call class Mapi Interface
+	 * This method for call class OApi Interface
 	 * @access public
-	 * @return Object of Mapi_Interface 
+	 * @return Object of OApi_Interface 
 	 */
 	public function interfaces() {
 		return new MInterfaces($this->talker(), $this);
 	}
 	
 	/**
-	 * This method for call class Mapi IP
+	 * This method for call class OApi Ppp
 	 * @access public
-	 * @return Object of Mapi_Ip 
-	 */
-	public function ip() {
-		return new MIp($this->talker(), $this);
-	}
-	
-	/**
-	 * This method for call class Mapi Ppp
-	 * @access public
-	 * @return Object of Mapi_Ppp
+	 * @return Object of OApi_Ppp
 	 */
 	public function ppp() {
-		return new MPpp($this->talker(), $this);
+		return new OPpp($this->talker(), $this);
 	}
 	
 	/**
-	 * This method for call class Mapi_System
+	 * This method for call class OApi IP
 	 * @access public
-	 * @return Mapi_System 
+	 * @return Object of OApi_Ip 
 	 */
-	public function system() {
-		return new MSystem($this->talker(), $this);
+	public function ip() {
+		return new OIp($this->talker(), $this);
 	}
 	
 	/**
-	 * This method for call class Mapi_File
+	 * This method for call class OApi_File
 	 * @access public
-	 * @return Mapi_File 
+	 * @return OApi_File 
 	 */
 	public function file() {
-		return new MFile($this->talker(), $this);
+		return new OFile($this->talker(), $this);
 	}
 	
 	/**
-	 * This metod used call class Mapi_System_Scheduler 
-	 * @return Mapi_Ip
+	 * This method for call class OApi_System
+	 * @access public
+	 * @return OApi_System 
+	 */
+	public function system() {
+		return new OSystem($this->talker(), $this);
+	}
+	
+	/**
+	 * This metod used call class OApi_System_Scheduler 
+	 * @return OApi_Ip
 	 */
 	public function system_scheduler() {
-		return new MSscheduler($this->talker(), $this);
+		return new OSystemScheduler($this->talker(), $this);
 	}	
 	
 }
