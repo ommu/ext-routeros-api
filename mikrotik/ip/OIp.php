@@ -3,19 +3,19 @@
  * Description of OApi_Ip
  *
  * TOC :
- *	address
- *	hotspot
- *	pool
- *	dns
- *	firewall
- *	accounting
  *	arp
+ *	accounting
+ *	address
  *	dhcp_client
  *	dhcp_relay
  *	dhcp_server
+ *	dns
+ *	firewall
+ *	hotspot
+ *	pool
+ *	proxy 
  *	route
  *	service
- *	proxy 
  *
  * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
