@@ -41,7 +41,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to display all customer
 	 * @attr
 	 *	URL: -
 	 *
@@ -57,7 +57,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to add customer
 	 * @param
 	 *	URL: -
 	 *
@@ -70,7 +70,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to change customer
 	 * @param
 	 *	URL: -
 	 *
@@ -83,7 +83,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to display one customer in detail
 	 * @attr
 	 *	URL: -
 	 *
@@ -99,7 +99,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to deleted customer
 	 * @param
 	 *	URL: -
 	 *
@@ -112,7 +112,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to activate customer
 	 * @param
 	 *	URL: -
 	 *
@@ -125,7 +125,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to disable customer
 	 * @param
 	 *	URL: -
 	 *
@@ -138,7 +138,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to display all user
 	 * @attr
 	 *	URL: -
 	 *
@@ -154,7 +154,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to add user
 	 * @param
 	 *	URL: -
 	 *
@@ -167,7 +167,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to change user
 	 * @param
 	 *	URL: -
 	 *
@@ -180,7 +180,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to display one user in detail
 	 * @attr
 	 *	URL: -
 	 *
@@ -196,7 +196,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to remove the user
 	 * @param
 	 *	URL: -
 	 *
@@ -209,7 +209,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to activate the user
 	 * @param
 	 *	URL: -
 	 *
@@ -222,7 +222,7 @@ class OToolUsermanager {
 	}
 	
 	/**
-	 * This method is used to display all hotspot
+	 * This method is used to disable the user
 	 * @param
 	 *	URL: -
 	 *

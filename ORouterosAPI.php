@@ -29,7 +29,7 @@ require_once MIKROTIK_PATH . 'file/OFile.php';
 require_once MIKROTIK_PATH . 'system/OSystem.php';
 require_once MIKROTIK_PATH . 'system/OSystemScheduler.php';
 
-//load child class file
+//load child class tool
 require_once MIKROTIK_PATH . 'tool/OTool.php';
 
 class ORouterosAPI extends RouterosAPI
