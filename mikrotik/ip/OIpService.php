@@ -82,8 +82,8 @@ class OIpService {
 		$sentence = new SentenceUtil();
 		$sentence->addCommand("/ip/service/set");
 		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
+			$sentence->setAttribute($name, $value);
+		}
 		$sentence->where(".id", "=", $id);
 		$this->talker->send($sentence);
 		return "Sucsess";
