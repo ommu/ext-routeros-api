@@ -43,7 +43,7 @@ class OSystem {
 		if(0 < count($array))
 			return $array;
 		else
-			return false;
+			return array();
 	}
 	
 	/**
@@ -64,7 +64,7 @@ class OSystem {
 	public function set_identity($param) {
 		$this->_conn->comm("/system/identity/set", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ class OSystem {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No History";
+			return array();
 	}
 	
 	/**
@@ -93,7 +93,7 @@ class OSystem {
 		if(0 < count($array))
 			return $array;
 		else
-			return false;
+			return array();
 	}
 	
 	/**
@@ -106,7 +106,7 @@ class OSystem {
 	public function reset($param) {
 		$this->_conn->comm("/system/reset-configuration", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -122,7 +122,7 @@ class OSystem {
 		if(0 < count($array))
 			return $array;
 		else
-			return false;
+			return array();
 	}
 	
 	/**
@@ -135,7 +135,7 @@ class OSystem {
 	public function save_backup($param) {
 		$this->_conn->comm("/system/backup/save", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -148,6 +148,6 @@ class OSystem {
 	public function load_backup($param) {
 		$this->_conn->comm("/system/backup/load", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

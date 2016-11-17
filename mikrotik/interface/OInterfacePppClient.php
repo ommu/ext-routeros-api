@@ -44,7 +44,7 @@ class OInterfacePppClient {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPP Client To Set, Please Your Add Interface PPP Client";
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OInterfacePppClient {
 	public function add_ppp_client($param) {
 		$this->_conn->comm("/interface/ppp-client/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class OInterfacePppClient {
 	public function enable_ppp_client($param) {
 		$this->_conn->comm("/interface/ppp-client/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OInterfacePppClient {
 	public function disable_ppp_client($param) {
 		$this->_conn->comm("/interface/ppp-client/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -93,15 +93,10 @@ class OInterfacePppClient {
 	 *
 	 * @return type array
 	 */
-	public function set_ppp_client($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ppp-client/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_ppp_client($param) {
+		$this->_conn->comm("/interface/ppp-client/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -117,7 +112,7 @@ class OInterfacePppClient {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPP Client With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -130,7 +125,7 @@ class OInterfacePppClient {
 	public function delete_ppp_client($param) {
 		$this->_conn->comm("/interface/ppp-client/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

@@ -44,7 +44,7 @@ class OIpAddress {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Address To Set, Please Your Add Ip Address";
+			return array();
 	}
 
 	/**
@@ -63,7 +63,7 @@ class OIpAddress {
 	public function add_address($param) {
 		$this->_conn->comm("/ip/address/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class OIpAddress {
 	public function enable_address($param) {
 		$this->_conn->comm("/ip/address/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -89,7 +89,7 @@ class OIpAddress {
 	public function disable_address($param) {
 		$this->_conn->comm("/ip/address/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -99,15 +99,10 @@ class OIpAddress {
 	 *
 	 * @return type array
 	 */
-	public function set_address($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/address/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_address($param) {
+		$this->_conn->comm("/ip/address/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}	   
 	
 	/**
@@ -123,7 +118,7 @@ class OIpAddress {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Address With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -136,6 +131,6 @@ class OIpAddress {
 	public function delete_address($param) {
 		$this->_conn->comm("/ip/address/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

@@ -38,7 +38,7 @@ class OIpProxy {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Proxi To Set, Please Your Add Ip Proxi";
+			return array();
 	}
 	
 	/**
@@ -49,12 +49,8 @@ class OIpProxy {
 	 * @return type array
 	 */
 	public function set_proxy($param) {
-		$sentence = new SentenceUtil();
-	   $sentence->addCommand("/ip/proxy/set");
-	   foreach ($param as $name => $value){
-			   $sentence->setAttribute($name, $value);
-	   }	   
-	   $this->talker->send($sentence);
-	   return "Sucsess";		
+		$this->_conn->comm("/ip/proxy/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 }

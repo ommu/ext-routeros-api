@@ -48,7 +48,7 @@ class OInterfaceL2tpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface L2TP Server To Set, Please Your Add Interface L2TP Server";
+			return array();
 	}
 	
 	/**
@@ -61,7 +61,7 @@ class OInterfaceL2tpServer {
 	public function add_l2tp_server($param) {
 		$this->_conn->comm("/interface/l2tp-server/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -74,7 +74,7 @@ class OInterfaceL2tpServer {
 	public function enable_l2tp_server($param) {
 		$this->_conn->comm("/interface/l2tp-server/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -87,7 +87,7 @@ class OInterfaceL2tpServer {
 	public function disable_l2tp_server($param) {
 		$this->_conn->comm("/interface/l2tp-server/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -97,15 +97,10 @@ class OInterfaceL2tpServer {
 	 *
 	 * @return type array
 	 */
-	public function set_l2tp_server($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/l2tp-server/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_l2tp_server($param) {
+		$this->_conn->comm("/interface/l2tp-server/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -121,7 +116,7 @@ class OInterfaceL2tpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface L2TP Server With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -134,7 +129,7 @@ class OInterfaceL2tpServer {
 	public function delete_l2tp_server($param) {
 		$this->_conn->comm("/interface/l2tp-server/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -150,7 +145,7 @@ class OInterfaceL2tpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface L2TP Server Server To Set, Please Your Add Interface L2TP Server Server";
+			return array();
 	}
 	
 	/**
@@ -163,7 +158,7 @@ class OInterfaceL2tpServer {
 	public function set_l2tp_server_server($param) {
 		$this->_conn->comm("/interface/l2tp-server/server/set", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

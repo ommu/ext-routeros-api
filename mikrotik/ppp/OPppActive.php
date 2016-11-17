@@ -39,7 +39,7 @@ class OPppActive {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No PPP Active To Set, Please Your Add PPP Active";
+			return array();
 	}
 	
 	/**
@@ -52,6 +52,6 @@ class OPppActive {
 	public function delete_ppp_active($param) {
 		$this->_conn->comm("/ppp/active/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

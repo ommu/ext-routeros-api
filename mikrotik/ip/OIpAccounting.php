@@ -43,7 +43,7 @@ class OIpAccounting {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Accounting To Set, Please Your Add Ip Accounting";
+			return array();
 	}
 	
 	/**
@@ -60,7 +60,7 @@ class OIpAccounting {
 	public function set_accounting($param) {
 		$this->_conn->comm("/ip/accounting/set", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class OIpAccounting {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Accounting web-access To Set, Please Your Add Ip Accounting web-access";
+			return array();
 	}
 	
 	/**
@@ -92,7 +92,7 @@ class OIpAccounting {
 	public function set_web_access($param) {
 		$this->_conn->comm("/ip/accounting/web-access/set", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -108,7 +108,7 @@ class OIpAccounting {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Accounting Uncounted To Set, Please Your Add Ip Accounting Uncounted";
+			return array();
 	}
 	
 	/**
@@ -121,7 +121,7 @@ class OIpAccounting {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Accounting Snapshot To Set, Please Your Add Ip Accounting Snapshot";
+			return array();
 	}
 }
 

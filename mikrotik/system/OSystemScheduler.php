@@ -44,7 +44,7 @@ class OSystemScheduler {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No System Scheduler To Set, Please Your Add System Scheduler";
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OSystemScheduler {
 	public function add_system_scheduler($param) {
 		$this->_conn->comm("/system/scheduler/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class OSystemScheduler {
 	public function enable_system_scheduler($param) {
 		$this->_conn->comm("/system/scheduler/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OSystemScheduler {
 	public function disable_system_scheduler($param) {
 		$this->_conn->comm("/system/scheduler/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -93,15 +93,10 @@ class OSystemScheduler {
 	 *
 	 * @return type array
 	 */
-	public function set_system_scheduler($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/system/scheduler/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_system_scheduler($param) {
+		$this->_conn->comm("/system/scheduler/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	  
 	/**
@@ -117,7 +112,7 @@ class OSystemScheduler {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No System Scheduler With This id = ".$param;
+			return array();
 	}
 	 
 	/**
@@ -130,7 +125,7 @@ class OSystemScheduler {
 	public function delete_system_scheduler($param) {
 		$this->_conn->comm("/system/scheduler/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 }

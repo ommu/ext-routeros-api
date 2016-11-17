@@ -44,7 +44,7 @@ class OInterfacePppoeServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPPoE-Server To Set, Please Your Add Interface PPPoE-Server";
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OInterfacePppoeServer {
 	public function add_pppoe_server($param) {
 		$this->_conn->comm("/interface/pppoe-server/server/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class OInterfacePppoeServer {
 	public function enable_pppoe_server($param) {
 		$this->_conn->comm("/interface/pppoe-server/server/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OInterfacePppoeServer {
 	public function disable_pppoe_server($param) {
 		$this->_conn->comm("/interface/pppoe-server/server/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -93,15 +93,10 @@ class OInterfacePppoeServer {
 	 *
 	 * @return type array
 	 */
-	public function set_pppoe_server($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pppoe-server/server/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_pppoe_server($param) {
+		$this->_conn->comm("/interface/pppoe-server/server/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -117,7 +112,7 @@ class OInterfacePppoeServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPPoE-Server With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -130,7 +125,7 @@ class OInterfacePppoeServer {
 	public function delete_pppoe_server($param) {
 		$this->_conn->comm("/interface/pppoe-server/server/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

@@ -44,7 +44,7 @@ class OInterfaceEoip {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface EOIP To Set, Please Your Add Interface EOIP";
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OInterfaceEoip {
 	public function add_eoip($param) {
 		$this->_conn->comm("/interface/eoip/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class OInterfaceEoip {
 	public function enable_eoip($param) {
 		$this->_conn->comm("/interface/eoip/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OInterfaceEoip {
 	public function disable_eoip($param) {
 		$this->_conn->comm("/interface/eoip/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -93,15 +93,10 @@ class OInterfaceEoip {
 	 *
 	 * @return type array
 	 */
-	public function set_eoip($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/eoip/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_eoip($param) {
+		$this->_conn->comm("/interface/eoip/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}	 
 	
 	/**
@@ -117,7 +112,7 @@ class OInterfaceEoip {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface EOIP With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -130,6 +125,6 @@ class OInterfaceEoip {
 	public function delete_eoip($param) {
 		$this->_conn->comm("/interface/eoip/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

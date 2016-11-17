@@ -48,7 +48,7 @@ class OInterfacePptpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPTP Server To Set, Please Your Add Interface PPTP Server";
+			return array();
 	}
 	
 	/**
@@ -61,7 +61,7 @@ class OInterfacePptpServer {
 	public function add_pptp_server($param) {
 		$this->_conn->comm("/interface/pptp-server/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -74,7 +74,7 @@ class OInterfacePptpServer {
 	public function enable_pptp_server($param) {
 		$this->_conn->comm("/interface/pptp-server/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -87,7 +87,7 @@ class OInterfacePptpServer {
 	public function disable_pptp_server($param) {
 		$this->_conn->comm("/interface/pptp-server/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -97,15 +97,10 @@ class OInterfacePptpServer {
 	 *
 	 * @return type array
 	 */
-	public function set_pptp_server($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pptp-server/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess"; 
+	public function set_pptp_server($param) {
+		$this->_conn->comm("/interface/pptp-server/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -121,7 +116,7 @@ class OInterfacePptpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPTP Server With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -134,7 +129,7 @@ class OInterfacePptpServer {
 	public function delete_pptp_server($param) {
 		$this->_conn->comm("/interface/pptp-server/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -150,7 +145,7 @@ class OInterfacePptpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPTP Server Server To Set, Please Your Add Interface PPTP Server Server";
+			return array();
 	}
 	
 	/**
@@ -163,6 +158,6 @@ class OInterfacePptpServer {
 	public function set_pptp_server_server($param) {
 		$this->_conn->comm("/interface/pptp-server/server/set", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

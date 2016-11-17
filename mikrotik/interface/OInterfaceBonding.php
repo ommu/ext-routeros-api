@@ -44,7 +44,7 @@ class OInterfaceBonding {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface Bonding To Set, Please Your Add Interface Bonding";
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OInterfaceBonding {
 	public function add_bonding($param) {
 		$this->_conn->comm("/interface/bonding/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class OInterfaceBonding {
 	public function enable_bonding($param) {
 		$this->_conn->comm("/interface/bonding/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OInterfaceBonding {
 	public function disable_bonding($param) {
 		$this->_conn->comm("/interface/bonding/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	  
 	/**
@@ -93,15 +93,10 @@ class OInterfaceBonding {
 	 *
 	 * @return type array
 	 */
-	public function set_bonding($param, $id) {
-		  $sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bonding/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_bonding($param) {
+		$this->_conn->comm("/interface/bonding/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}	 
 	
 	/**
@@ -117,7 +112,7 @@ class OInterfaceBonding {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface Bonding With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -130,6 +125,6 @@ class OInterfaceBonding {
 	public function delete_bonding($param) {
 		$this->_conn->comm("/interface/bonding/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

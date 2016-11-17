@@ -39,7 +39,7 @@ class OPppAaa {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No PPP AAA To Set, Please Your Add PPP AAA";
+			return array();
 	}
 	
 	/**
@@ -52,6 +52,6 @@ class OPppAaa {
 	public function set_ppp_aaa($param) {
 		$this->_conn->comm("/ppp/aaa/set", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

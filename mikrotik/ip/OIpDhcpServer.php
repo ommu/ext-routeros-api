@@ -54,7 +54,7 @@ class OIpDhcpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Dhcp-Server To Set, Please Your Add Ip Dhcp-Server";
+			return array();
 	}
 	
 	/**
@@ -81,7 +81,7 @@ class OIpDhcpServer {
 	public function add_dhcp_server($param) {
 		$this->_conn->comm("/ip/dhcp-server/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -94,7 +94,7 @@ class OIpDhcpServer {
 	public function enable_dhcp_server($param) {
 		$this->_conn->comm("/ip/dhcp-server/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -107,7 +107,7 @@ class OIpDhcpServer {
 	public function disable_dhcp_server($param) {
 		$this->_conn->comm("/ip/dhcp-server/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -117,15 +117,10 @@ class OIpDhcpServer {
 	 *
 	 * @return type array
 	 */
-	public function set_dhcp_server($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/dhcp-server/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_dhcp_server($param) {
+		$this->_conn->comm("/ip/dhcp-server/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -141,7 +136,7 @@ class OIpDhcpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Dhcp-Server With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -154,7 +149,7 @@ class OIpDhcpServer {
 	public function delete_dhcp_server($param) {
 		$this->_conn->comm("/ip/dhcp-server/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -170,7 +165,7 @@ class OIpDhcpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Dhcp-Server Network To Set, Please Your Add Ip Dhcp-Server Network";
+			return array();
 	}
 	
 	/** 
@@ -195,7 +190,7 @@ class OIpDhcpServer {
 	public function add_dhcp_server_network($param) {
 		$this->_conn->comm("/ip/dhcp-server/network/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -205,15 +200,10 @@ class OIpDhcpServer {
 	 *
 	 * @return type array
 	 */
-	public function set_dhcp_server_network($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/dhcp-server/network/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_dhcp_server_network($param) {
+		$this->_conn->comm("/ip/dhcp-server/network/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -229,7 +219,7 @@ class OIpDhcpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Dhcp-Server Network With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -242,7 +232,7 @@ class OIpDhcpServer {
 	public function delete_dhcp_server_network($param) {
 		$this->_conn->comm("/ip/dhcp-server/network/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -255,7 +245,7 @@ class OIpDhcpServer {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Dhcp-Server Config To Set, Please Your Add Ip Dhcp-Server Config";
+			return array();
 	}
 	
 	/**
@@ -263,12 +253,10 @@ class OIpDhcpServer {
 	 * @param type $store_leases_disk string
 	 * @return type array
 	 */
-	public function set_dhcp_server_config($store_leases_disk) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/dhcp-server/config/set");
-		$sentence->setAttribute("store-leases-disk", $store_leases_disk);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_dhcp_server_config($param) {
+		$this->_conn->comm("/ip/dhcp-server/config/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 }

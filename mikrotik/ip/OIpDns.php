@@ -47,7 +47,7 @@ class OIpDns {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip DNS To Set, Please Your Add Ip DNS";
+			return array();
 	}
 	
 	/**
@@ -55,12 +55,10 @@ class OIpDns {
 	 * @param type $servers string example : '192.168.1.1,192.168.2.1'
 	 * @return type array
 	 */
-	public function set_dns($servers) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/dns/set");
-		$sentence->setAttribute("servers", $servers);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_dns($param) {
+		$this->_conn->comm("/ip/dns/set", $servers);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -76,7 +74,7 @@ class OIpDns {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Static DNS To Set, Please Your Add Ip Static DNS";
+			return array();
 	}
 	 
 	/**
@@ -93,7 +91,7 @@ class OIpDns {
 	public function add_dns_static($param) {
 		$this->_conn->comm("/ip/dns/static/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -103,15 +101,10 @@ class OIpDns {
 	 *
 	 * @return type array
 	 */
-	public function set_static_dns($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/dns/static/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_static_dns($param) {
+		$this->_conn->comm("/ip/dns/static/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -127,7 +120,7 @@ class OIpDns {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Static DNS With This Id = ".$param;
+			return array();
 	}
 
 	/**
@@ -143,7 +136,7 @@ class OIpDns {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip DNS Cache To Set, Please Your Add Ip DNS Cache";
+			return array();
 	}
 	
 	/**
@@ -159,7 +152,7 @@ class OIpDns {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip DNS Cache With This Id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -175,7 +168,7 @@ class OIpDns {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip DNS Cache All To Set, Please Your Add Ip DNS Cache All";
+			return array();
 	}
 	
 	/**
@@ -191,6 +184,6 @@ class OIpDns {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip DNS Cache All With This Id = ".$param;
+			return array();
 	}
 }

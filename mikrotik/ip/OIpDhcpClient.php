@@ -47,7 +47,7 @@ class OIpDhcpClient {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Dhcp-Client To Set, Please Your Add Ip Dhcp-Client";
+			return array();
 	}
 	
 	/**
@@ -72,7 +72,7 @@ class OIpDhcpClient {
 	public function add_dhcp_client($param) {
 		$this->_conn->comm("/ip/dhcp-client/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -85,7 +85,7 @@ class OIpDhcpClient {
 	public function enable_dhcp_client($param) {
 		$this->_conn->comm("/ip/dhcp-client/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -98,7 +98,7 @@ class OIpDhcpClient {
 	public function disable_dhcp_client($param) {
 		$this->_conn->comm("/ip/dhcp-client/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -111,7 +111,7 @@ class OIpDhcpClient {
 	public function renew_dhcp_client($param) {
 		$this->_conn->comm("/ip/dhcp-client/renew", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -124,7 +124,7 @@ class OIpDhcpClient {
 	public function release_dhcp_client($param) {
 		$this->_conn->comm("/ip/dhcp-client/release", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -134,15 +134,10 @@ class OIpDhcpClient {
 	 *
 	 * @return type array
 	 */
-	public function set_dhcp_client($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/dhcp-client/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_dhcp_client($param) {
+		$this->_conn->comm("/ip/dhcp-client/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -158,7 +153,7 @@ class OIpDhcpClient {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Dhcp-Client With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -171,7 +166,7 @@ class OIpDhcpClient {
 	public function delete_dhcp_client($param) {
 		$this->_conn->comm("/ip/dhcp-client/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

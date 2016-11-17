@@ -44,7 +44,7 @@ class OIpDhcpRelay {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Dhcp-Relay To Set, Please Your Add Ip Dhcp-Relay";
+			return array();
 	}
 	
 	/**
@@ -65,7 +65,7 @@ class OIpDhcpRelay {
 	public function add_dhcp_relay($param) {
 		$this->_conn->comm("/ip/dhcp-relay/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -78,7 +78,7 @@ class OIpDhcpRelay {
 	public function enable_dhcp_relay($param) {
 		$this->_conn->comm("/ip/dhcp-relay/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -91,7 +91,7 @@ class OIpDhcpRelay {
 	public function disable_dhcp_relay($param) {
 		$this->_conn->comm("/ip/dhcp-relay/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -101,15 +101,10 @@ class OIpDhcpRelay {
 	 *
 	 * @return type array
 	 */
-	public function set_dhcp_relay($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/dhcp-relay/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_dhcp_relay($param) {
+		$this->_conn->comm("/ip/dhcp-relay/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -125,7 +120,7 @@ class OIpDhcpRelay {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Dhcp-Relay With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -138,6 +133,6 @@ class OIpDhcpRelay {
 	public function delete_dhcp_relay($param) {
 		$this->_conn->comm("/ip/dhcp-relay/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

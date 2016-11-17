@@ -44,7 +44,7 @@ class OInterfaceVlan {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface VLAN To Set, Please Your Add Ip Address";
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OInterfaceVlan {
 	public function add_vlan($param) {
 		$this->_conn->comm("/interface/vlan/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}	
 	 
 	/**
@@ -70,7 +70,7 @@ class OInterfaceVlan {
 	public function enable_vlan($param) {
 		$this->_conn->comm("/interface/vlan/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OInterfaceVlan {
 	public function disable_vlan($param) {
 		$this->_conn->comm("/interface/vlan/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -93,15 +93,10 @@ class OInterfaceVlan {
 	 *
 	 * @return type array
 	 */
-	public function set_vlan($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/vlan/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_vlan($param) {
+		$this->_conn->comm("/interface/vlan/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}	 
 	
 	/**
@@ -117,7 +112,7 @@ class OInterfaceVlan {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface VLAN With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -130,7 +125,7 @@ class OInterfaceVlan {
 	public function delete_vlan($param) {
 		$this->_conn->comm("/interface/vlan/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

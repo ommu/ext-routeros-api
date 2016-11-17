@@ -44,7 +44,7 @@ class OInterfaceVrrp {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface VRRP To Set, Please Your Add Interface VRRP";
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OInterfaceVrrp {
 	public function add_vrrp($param) {
 		$this->_conn->comm("/interface/vrrp/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class OInterfaceVrrp {
 	public function enable_vrrp($param) {
 		$this->_conn->comm("/interface/vrrp/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OInterfaceVrrp {
 	public function disable_vrrp($param) {
 		$this->_conn->comm("/interface/vrrp/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -93,15 +93,10 @@ class OInterfaceVrrp {
 	 *
 	 * @return type array
 	 */
-	public function set_vrrp($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/vrrp/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_vrrp($param) {
+		$this->_conn->comm("/interface/vrrp/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}	 
 	
 	/**
@@ -117,7 +112,7 @@ class OInterfaceVrrp {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface VRRP With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -130,6 +125,6 @@ class OInterfaceVrrp {
 	public function delete_vrrp($param) {
 		$this->_conn->comm("/interface/vrrp/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

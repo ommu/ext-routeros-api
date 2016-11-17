@@ -42,7 +42,7 @@ class OIpPool {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Pool To Set, Please Your Add Ip Pool";
+			return array();
 	}
 	
 	/**
@@ -55,7 +55,7 @@ class OIpPool {
 	public function add_pool($param) {
 		$this->_conn->comm("/ip/pool/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -65,15 +65,10 @@ class OIpPool {
 	 *
 	 * @return type array
 	 */
-	public function set_pool($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/pool/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_pool($param) {
+		$this->_conn->comm("/ip/pool/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -89,7 +84,7 @@ class OIpPool {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Binding With This Id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -102,7 +97,7 @@ class OIpPool {
 	public function delete_pool($param) {
 		$this->_conn->comm("/ip/pool/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

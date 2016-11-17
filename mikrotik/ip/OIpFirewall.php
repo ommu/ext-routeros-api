@@ -69,7 +69,7 @@ class OIpFirewall {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Firewall Filter To Set, Please Your Add Ip Firewall Filter";
+			return array();
 	}
 	
 	/**
@@ -81,7 +81,7 @@ class OIpFirewall {
 	public function add_firewall_filter($param) {
 		$this->_conn->comm("/ip/firewall/filter/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	 /**
@@ -94,7 +94,7 @@ class OIpFirewall {
 	public function enable_firewall_filter($param) {
 		$this->_conn->comm("/ip/firewall/filter/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	 /**
@@ -107,7 +107,7 @@ class OIpFirewall {
 	public function disable_firewall_filter($param) {
 		$this->_conn->comm("/ip/firewall/filter/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -117,15 +117,10 @@ class OIpFirewall {
 	 *
 	 * @return type array
 	 */
-	public function set_firewall_filter($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/firewall/filter/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_firewall_filter($param) {
+		$this->_conn->comm("/ip/firewall/filter/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	 /**
@@ -141,7 +136,7 @@ class OIpFirewall {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Firewall Filter With This id = ".$param;
+			return array();
 	}
 	
 	 /**
@@ -154,7 +149,7 @@ class OIpFirewall {
 	public function delete_firewall_filter($param) {
 		$this->_conn->comm("/ip/firewall/filter/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -170,7 +165,7 @@ class OIpFirewall {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Firewall NAT To Set, Please Your Add Ip Firewall NAT";
+			return array();
 	}
 	
 	/**
@@ -183,7 +178,7 @@ class OIpFirewall {
 	public function add_firewall_nat($param) {
 		$this->_conn->comm("/ip/firewall/nat/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -196,7 +191,7 @@ class OIpFirewall {
 	public function enable_firewall_nat($param) {
 		$this->_conn->comm("/ip/firewall/nat/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -209,7 +204,7 @@ class OIpFirewall {
 	public function disable_firewall_nat($param) {
 		$this->_conn->comm("/ip/firewall/nat/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -219,15 +214,10 @@ class OIpFirewall {
 	 *
 	 * @return type array
 	 */
-	public function set_firewall_nat($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/firewall/nat/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_firewall_nat($param) {
+		$this->_conn->comm("/ip/firewall/nat/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -243,7 +233,7 @@ class OIpFirewall {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Firewall NAT With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -256,7 +246,7 @@ class OIpFirewall {
 	public function delete_firewall_nat($param) {
 		$this->_conn->comm("/ip/firewall/nat/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -272,7 +262,7 @@ class OIpFirewall {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Firewall Mangle To Set, Please Your Add Ip Firewall Mangle";
+			return array();
 	}
 	
 	/**
@@ -285,7 +275,7 @@ class OIpFirewall {
 	public function add_firewall_mangle($param) {
 		$this->_conn->comm("/ip/firewall/mangle/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -298,7 +288,7 @@ class OIpFirewall {
 	public function enable_firewall_mangle($param) {
 		$this->_conn->comm("/ip/firewall/mangle/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -311,7 +301,7 @@ class OIpFirewall {
 	public function disable_firewall_mangle($param) {
 		$this->_conn->comm("/ip/firewall/mangle/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -321,15 +311,10 @@ class OIpFirewall {
 	 *
 	 * @return type array
 	 */
-	public function set_firewall_mangle($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/firewall/mangle/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_firewall_mangle($param) {
+		$this->_conn->comm("/ip/firewall/mangle/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -345,7 +330,7 @@ class OIpFirewall {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Firewall Mangle With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -358,7 +343,7 @@ class OIpFirewall {
 	public function delete_firewall_mangle($param) {
 		$this->_conn->comm("/ip/firewall/mangle/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -374,7 +359,7 @@ class OIpFirewall {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Firewall Connection To Set, Please Your Add Ip Firewall Connection";
+			return array();
 	}
 	
 	/**
@@ -387,7 +372,7 @@ class OIpFirewall {
 	public function delete_firewall_connection($param) {
 		$this->_conn->comm("/ip/firewall/connection/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -403,7 +388,7 @@ class OIpFirewall {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Firewall service-port To Set, Please Your Add Ip Firewall service-port";
+			return array();
 	}
 	
 	/**
@@ -416,7 +401,7 @@ class OIpFirewall {
 	public function enable_firewall_service_port($param) {
 		$this->_conn->comm("/ip/firewall/service-port/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -429,7 +414,7 @@ class OIpFirewall {
 	public function disable_firewall_service_port($param) {
 		$this->_conn->comm("/ip/firewall/service-port/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -445,7 +430,7 @@ class OIpFirewall {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Firewall Service-Port With This id = ".$param;
+			return array();
 	}
 	
 }

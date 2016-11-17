@@ -40,7 +40,7 @@ class OFile {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No File";
+			return array();
 	}
 	
 	/**
@@ -56,7 +56,7 @@ class OFile {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No File With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -69,6 +69,6 @@ class OFile {
 	public function delete_file($param) {
 		$this->_conn->comm("/file/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

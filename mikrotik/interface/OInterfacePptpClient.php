@@ -44,7 +44,7 @@ class OInterfacePptpClient {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPTP Client To Set, Please Your Add Interface PPTP Client";
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OInterfacePptpClient {
 	public function add_pptp_client($param) {
 		$this->_conn->comm("/interface/pptp-client/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class OInterfacePptpClient {
 	public function enable_pptp_client($param) {
 		$this->_conn->comm("/interface/pptp-client/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OInterfacePptpClient {
 	public function disable_pptp_client($param) {
 		$this->_conn->comm("/interface/pptp-client/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -93,15 +93,10 @@ class OInterfacePptpClient {
 	 *
 	 * @return type array
 	 */
-	public function set_pptp_client($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pptp-client/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_pptp_client($param) {
+		$this->_conn->comm("/interface/pptp-client/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -117,7 +112,7 @@ class OInterfacePptpClient {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPTP Client With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -130,7 +125,7 @@ class OInterfacePptpClient {
 	public function delete_pptp_client($param) {
 		$this->_conn->comm("/interface/pptp-client/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

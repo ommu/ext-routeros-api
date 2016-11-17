@@ -44,7 +44,7 @@ class OIpArp {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip ARP To Set, Please Your Add Ip ARP";
+			return array();
 	}
 	
 	/**
@@ -61,7 +61,7 @@ class OIpArp {
 	public function add_arp($param) {
 		$this->_conn->comm("/ip/arp/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -74,7 +74,7 @@ class OIpArp {
 	public function enable_arp($param) {
 		$this->_conn->comm("/ip/arp/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -87,7 +87,7 @@ class OIpArp {
 	public function disable_arp($param) {
 		$this->_conn->comm("/ip/arp/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -97,15 +97,10 @@ class OIpArp {
 	 *
 	 * @return type array
 	 */
-	public function set_arp($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/arp/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_arp($param) {
+		$this->_conn->comm("/ip/arp/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -121,7 +116,7 @@ class OIpArp {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip ARP With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -134,6 +129,6 @@ class OIpArp {
 	public function delete_arp($param) {
 		$this->_conn->comm("/ip/arp/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

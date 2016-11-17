@@ -56,7 +56,7 @@ class OInterfaceBridge {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface Bridge To Set, Please Your Add Interface Bridge";
+			return array();
 	}
 	
 	/**
@@ -69,7 +69,7 @@ class OInterfaceBridge {
 	public function add_bridge($param) {
 		$this->_conn->comm("/interface/bridge/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -82,7 +82,7 @@ class OInterfaceBridge {
 	public function enable_bridge($param) {
 		$this->_conn->comm("/interface/bridge/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -95,7 +95,7 @@ class OInterfaceBridge {
 	public function disable_bridge($param) {
 		$this->_conn->comm("/interface/bridge/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -105,15 +105,10 @@ class OInterfaceBridge {
 	 *
 	 * @return type array
 	 */
-	public function set_bridge($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_bridge($param) {
+		$this->_conn->comm("/interface/bridge/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -129,7 +124,7 @@ class OInterfaceBridge {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface Bridge With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -142,7 +137,7 @@ class OInterfaceBridge {
 	public function delete_bridge($param) {
 		$this->_conn->comm("/interface/bridge/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -158,7 +153,7 @@ class OInterfaceBridge {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface Bridge NAT To Set, Please Your Add Interface Bridge NAT";
+			return array();
 	}
 	
 	/**
@@ -171,7 +166,7 @@ class OInterfaceBridge {
 	public function add_bridge_nat($param) {
 		$this->_conn->comm("/interface/bridge/nat/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -184,7 +179,7 @@ class OInterfaceBridge {
 	public function enable_bridge_nat($param) {
 		$this->_conn->comm("/interface/bridge/nat/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -197,7 +192,7 @@ class OInterfaceBridge {
 	public function disable_bridge_nat($param) {
 		$this->_conn->comm("/interface/bridge/nat/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -207,15 +202,10 @@ class OInterfaceBridge {
 	 *
 	 * @return type array
 	 */
-	public function set_bridge_nat($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/bridge/nat/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_bridge_nat($param) {
+		$this->_conn->comm("/interface/bridge/nat/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -231,7 +221,7 @@ class OInterfaceBridge {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface Bridge NAT With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -244,7 +234,7 @@ class OInterfaceBridge {
 	public function delete_bridge_nat($param) {
 		$this->_conn->comm("/interface/bridge/nat/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -260,7 +250,7 @@ class OInterfaceBridge {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface Bridge Settings To Set, Please Your Add Interface Bridge Settings";
+			return array();
 	}
 	
 	/**
@@ -273,7 +263,7 @@ class OInterfaceBridge {
 	public function set_bridge_settings($param) {
 		$this->_conn->comm("/interface/bridge/settings/set", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

@@ -38,7 +38,7 @@ class OInterfacePppoeClient {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPPoE-Client To Set, Please Your Add PPPoE-Client";
+			return array();
 	}
 	
 	/**
@@ -51,7 +51,7 @@ class OInterfacePppoeClient {
 	public function add_pppoe_client($param) {
 		$this->_conn->comm("/interface/pppoe-client/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -64,7 +64,7 @@ class OInterfacePppoeClient {
 	public function enable_pppoe_client($param) {
 		$this->_conn->comm("/interface/pppoe-client/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ class OInterfacePppoeClient {
 	public function disable_pppoe_client($param) {
 		$this->_conn->comm("/interface/pppoe-client/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
    
 	/**
@@ -87,15 +87,10 @@ class OInterfacePppoeClient {
 	 *
 	 * @return type array
 	 */
-	public function set_pppoe_client($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/pppoe-client/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_pppoe_client($param) {
+		$this->_conn->comm("/interface/pppoe-client/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}	 
 	
 	/**
@@ -111,7 +106,7 @@ class OInterfacePppoeClient {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface PPPoE-Client With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -124,7 +119,7 @@ class OInterfacePppoeClient {
 	public function delete_pppoe_client($param) {
 		$this->_conn->comm("/interface/pppoe-client/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

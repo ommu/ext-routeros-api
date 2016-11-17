@@ -44,7 +44,7 @@ class OInterfaceIpip {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface IPIP To Set, Please Your Add Interface IPIP";
+			return array();
 	}
 	 
 	/**
@@ -57,7 +57,7 @@ class OInterfaceIpip {
 	public function add_ipip($param) {
 		$this->_conn->comm("/interface/ipip/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class OInterfaceIpip {
 	public function enable_ipip($param) {
 		$this->_conn->comm("/interface/ipip/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OInterfaceIpip {
 	public function disable_ipip($param) {
 		$this->_conn->comm("/interface/ipip/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -93,15 +93,10 @@ class OInterfaceIpip {
 	 *
 	 * @return type array
 	 */
-	public function set_ipip($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/ipip/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_ipip($param) {
+		$this->_conn->comm("/interface/ipip/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}	 
 	
 	/**
@@ -117,7 +112,7 @@ class OInterfaceIpip {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface IPIP With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -130,6 +125,6 @@ class OInterfaceIpip {
 	public function delete_ipip($param) {
 		$this->_conn->comm("/interface/ipip/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

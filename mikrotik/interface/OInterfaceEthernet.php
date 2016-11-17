@@ -43,7 +43,7 @@ class OInterfaceEthernet {
 		if(0 < count($array))
 			return $array;
 		else
-			return false;
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OInterfaceEthernet {
 	public function enable_interface($param) {
 		$this->_conn->comm("/interface/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -71,7 +71,7 @@ class OInterfaceEthernet {
 	public function disable_interface($param) {
 		$this->_conn->comm("/interface/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -82,15 +82,10 @@ class OInterfaceEthernet {
 	 *
 	 * @return type array
 	 */
-	public function set_interface($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_interface($param) {
+		$this->_conn->comm("/interface/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -107,6 +102,6 @@ class OInterfaceEthernet {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface Ethernet With This id = ".$param;
+			return array();
 	}
 }

@@ -44,7 +44,7 @@ class OIpRoute {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Route To Set, Please Your Add Ip Route";
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OIpRoute {
 	public function add_route_gateway($param) {
 		$this->_conn->comm("/ip/route/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class OIpRoute {
 	public function enable_route($param) {
 		$this->_conn->comm("/ip/route/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OIpRoute {
 	public function disable_route($param) {
 		$this->_conn->comm("/ip/route/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -93,15 +93,10 @@ class OIpRoute {
 	 *
 	 * @return type array
 	 */
-	public function set_route($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/route/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_route($param) {
+		$this->_conn->comm("/ip/route/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -117,7 +112,7 @@ class OIpRoute {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Route With This id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -130,7 +125,7 @@ class OIpRoute {
 	public function delete_route($param) {
 		$this->_conn->comm("/ip/route/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

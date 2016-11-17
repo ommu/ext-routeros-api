@@ -44,7 +44,7 @@ class OInterfaceL2tpClient {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface L2TP Client To Set, Please Your Add Interface L2TP Client";
+			return array();
 	}
 	
 	/**
@@ -57,7 +57,7 @@ class OInterfaceL2tpClient {
 	public function add_l2tp_client($param) {
 		$this->_conn->comm("/interface/l2tp-client/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ class OInterfaceL2tpClient {
 	public function enable_l2tp_client($param) {
 		$this->_conn->comm("/interface/l2tp-client/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OInterfaceL2tpClient {
 	public function disable_l2tp_client($param) {
 		$this->_conn->comm("/interface/l2tp-client/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -93,15 +93,10 @@ class OInterfaceL2tpClient {
 	 *
 	 * @return type array
 	 */
-	public function set_l2tp_client($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/interface/l2tp-client/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_l2tp_client($param) {
+		$this->_conn->comm("/interface/l2tp-client/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	  
 	/**
@@ -117,7 +112,7 @@ class OInterfaceL2tpClient {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Interface L2TP Client With This id = ".$param;
+			return array();
 	}
 	 
 	/**
@@ -130,7 +125,7 @@ class OInterfaceL2tpClient {
 	public function delete_l2tp_client($param) {
 		$this->_conn->comm("/interface/l2tp-client/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }
 

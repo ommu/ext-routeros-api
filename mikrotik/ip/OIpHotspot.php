@@ -62,7 +62,7 @@ class OIpHotspot {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Hotspot Setup, Please Your Setup Ip Hotspot";
+			return array();
 	}
 	
 	/**
@@ -86,7 +86,7 @@ class OIpHotspot {
 	public function setup_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -99,7 +99,7 @@ class OIpHotspot {
 	public function enable_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -112,7 +112,7 @@ class OIpHotspot {
 	public function disable_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -122,15 +122,10 @@ class OIpHotspot {
 	 *
 	 * @return type array
 	 */
-	  public function set_hotspot($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Success";
+	  public function set_hotspot($param) {
+		$this->_conn->comm("/ip/hotspot/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}	 
 	
 	/**
@@ -146,7 +141,7 @@ class OIpHotspot {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Hotspot With This Id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -159,7 +154,7 @@ class OIpHotspot {
 	public function delete_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -175,7 +170,7 @@ class OIpHotspot {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Hotspot User To Set, Please Your Add Ip Hotspot User";		
+			return array();	
 	}
 	
 	/**
@@ -202,7 +197,7 @@ class OIpHotspot {
    public function add_hotspot_user($param) {
 		$this->_conn->comm("/ip/hotspot/user/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -215,7 +210,7 @@ class OIpHotspot {
 	public function enable_hotspot_user($param) {
 		$this->_conn->comm("/ip/hotspot/user/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -228,7 +223,7 @@ class OIpHotspot {
 	public function disable_hotspot_user($param) {
 		$this->_conn->comm("/ip/hotspot/user/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -238,15 +233,10 @@ class OIpHotspot {
 	 *	 
 	 * @return type array
 	 */
-	public function set_hotspot_user($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/user/set");
-		foreach ($param as $name => $value){
-				$sentence->setAttribute($name, $value);
-		 }
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Success";
+	public function set_hotspot_user($param) {
+		$this->_conn->comm("/ip/hotspot/user/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -262,7 +252,7 @@ class OIpHotspot {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Hotspot User With This Id = ".$param;
+			return array();
 	}
 	
 	/**
@@ -275,7 +265,7 @@ class OIpHotspot {
 	public function delete_hotspot_user($param) {
 		$this->_conn->comm("/ip/hotspot/user/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -291,7 +281,7 @@ class OIpHotspot {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Binding To Set, Please Your Add Ip Binding";
+			return array();
 	}
 	
 	/**
@@ -310,7 +300,7 @@ class OIpHotspot {
 	public function add_ip_binding($param) {
 		$this->_conn->comm("/ip/hotspot/ip-binding/add", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -323,7 +313,7 @@ class OIpHotspot {
 	public function enable_ip_binding($param) {
 		$this->_conn->comm("/ip/hotspot/ip-binding/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -336,7 +326,7 @@ class OIpHotspot {
 	public function disable_ip_binding($param) {
 		$this->_conn->comm("/ip/hotspot/ip-binding/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -346,15 +336,10 @@ class OIpHotspot {
 	 *
 	 * @return type array
 	 */
-	public function set_ip_binding($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/hotspot/ip-binding/set");
-		foreach ($param as $name => $value){
-			$sentence->setAttribute($name, $value);
-		}
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Success";
+	public function set_ip_binding($param) {
+		$this->_conn->comm("/ip/hotspot/ip-binding/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -370,7 +355,7 @@ class OIpHotspot {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Binding With This Id = ".$param;
+			return array();
 	}	
 	
 	/**
@@ -383,6 +368,6 @@ class OIpHotspot {
 	public function delete_ip_binding($param) {
 		$this->_conn->comm("/ip/hotspot/ip-binding/remove", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 }

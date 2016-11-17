@@ -42,7 +42,7 @@ class OIpService {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Service To Set, Please Your Add Ip Service";
+			return array();
 	}
 	
 	/**
@@ -55,7 +55,7 @@ class OIpService {
 	public function enable_service($param) {
 		$this->_conn->comm("/ip/service/enable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -68,7 +68,7 @@ class OIpService {
 	public function disable_service($param) {
 		$this->_conn->comm("/ip/service/disable", $param);
 		$this->_conn->disconnect();
-		return "Success";
+		return array('success'=>1);
 	}
 	
 	/**
@@ -78,15 +78,10 @@ class OIpService {
 	 *
 	 * @return type array
 	 */
-	public function set_service($param, $id) {
-		$sentence = new SentenceUtil();
-		$sentence->addCommand("/ip/service/set");
-		foreach ($param as $name => $value){
-			$sentence->setAttribute($name, $value);
-		}
-		$sentence->where(".id", "=", $id);
-		$this->talker->send($sentence);
-		return "Sucsess";
+	public function set_service($param) {
+		$this->_conn->comm("/ip/service/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
 	}
 	
 	/**
@@ -102,7 +97,7 @@ class OIpService {
 		if(0 < count($array))
 			return $array;
 		else
-			return "No Ip Service With This id = ".$param;
+			return array();
 	}	
 }
 
