@@ -96,7 +96,7 @@ class OIpHotspot {
 	 *
 	 * @return type array
 	 */
-	 public function enable_hotspot($param) {
+	public function enable_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/enable", $param);
 		$this->_conn->disconnect();
 		return "Success";
@@ -109,7 +109,7 @@ class OIpHotspot {
 	 *
 	 * @return type array
 	 */
-	 public function disable_hotspot($param) {
+	public function disable_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/disable", $param);
 		$this->_conn->disconnect();
 		return "Success";
@@ -140,7 +140,7 @@ class OIpHotspot {
 	 *
 	 * @return type array
 	 */
-	 public function detail_hotspot($param) {
+	public function detail_hotspot($param) {
 		$array = $this->_conn->comm("/ip/hotspot/print", $param);
 		$this->_conn->disconnect();
 		if(0 < count($array))
@@ -156,7 +156,7 @@ class OIpHotspot {
 	 *
 	 * @return type array
 	 */
-	 public function delete_hotspot($param) {
+	public function delete_hotspot($param) {
 		$this->_conn->comm("/ip/hotspot/remove", $param);
 		$this->_conn->disconnect();
 		return "Success";

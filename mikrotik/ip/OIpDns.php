@@ -121,7 +121,7 @@ class OIpDns {
 	 *
 	 * @return type array
 	 */
-	 public function detail_static_dns($param) {
+	public function detail_static_dns($param) {
 		$array = $this->_conn->comm("/ip/dns/static/print", $param);
 		$this->_conn->disconnect();
 		if(0 < count($array))
@@ -153,7 +153,7 @@ class OIpDns {
 	 *
 	 * @return type array
 	 */
-	 public function detail_dns_cache($param) {
+	public function detail_dns_cache($param) {
 		$array = $this->_conn->comm("/ip/dns/cache/print", $param);
 		$this->_conn->disconnect();
 		if(0 < count($array))
@@ -185,7 +185,7 @@ class OIpDns {
 	 *
 	 * @return type array
 	 */
-	 public function detail_dns_cache_all($param) {
+	public function detail_dns_cache_all($param) {
 		$array = $this->_conn->comm("/ip/dns/cache/all/print", $param);
 		$this->_conn->disconnect();
 		if(0 < count($array))
