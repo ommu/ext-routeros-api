@@ -29,6 +29,9 @@ require_once MIKROTIK_PATH . 'file/OFile.php';
 require_once MIKROTIK_PATH . 'system/OSystem.php';
 require_once MIKROTIK_PATH . 'system/OSystemScheduler.php';
 
+//load child class file
+require_once MIKROTIK_PATH . 'tool/OTool.php';
+
 class ORouterosAPI extends RouterosAPI
 {
 	private $_obj;
@@ -38,7 +41,7 @@ class ORouterosAPI extends RouterosAPI
 	}
 	
 	public function talker() {		
-		return $this->connect(Yii::app()->params['Mikrotik']['address'], Yii::app()->params['Mikrotik']['username'], Yii::app()->params['Mikrotik']['password']);
+		return $this->connect(Yii::app()->params['Mikrotik'][0]['address'], Yii::app()->params['Mikrotik'][0]['username'], Yii::app()->params['Mikrotik'][0]['password']);
 	}
 	
 	/**
@@ -88,10 +91,18 @@ class ORouterosAPI extends RouterosAPI
 	
 	/**
 	 * This metod used call class OApi_System_Scheduler 
-	 * @return OApi_Ip
+	 * @return OApi_System_Scheduler
 	 */
 	public function system_scheduler() {
 		return new OSystemScheduler($this->talker(), $this);
+	}	
+	
+	/**
+	 * This metod used call class OApi_Tool
+	 * @return OApi_Tool
+	 */
+	public function tool() {
+		return new OTool($this->talker(), $this);
 	}	
 	
 }

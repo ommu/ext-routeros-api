@@ -1,0 +1,236 @@
+<?php
+/**
+ * Description of OApi_Tool_Usermanager
+ *
+ * TOC :
+ *	Customer
+ *	  get_all_customer
+ *	  add_customer
+ *	  set_customer
+ *	  detail_customer
+ *	  delete_customer
+ *	  enable_customer
+ *	  disable_customer 
+ *	User
+ *	  get_all_user
+ *	  add_user
+ *	  set_user
+ *	  detail_user
+ *	  delete_user
+ *	  enable_user
+ *	  disable_user 
+ *
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
+ * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
+ * @created date 26 May 2016, 15:15 WIB
+ * @link http://company.ommu.co
+ * @contect (+62)856-299-4114
+ */
+ 
+class OToolUsermanager {
+	/**
+	 * @access private
+	 * @var type array
+	 */
+	private $talker;
+	private $_conn;
+	
+	function __construct($talker, $conn) {
+		$this->talker = $talker;
+		$this->_conn = $conn;
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @attr
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function get_all_customer() {
+		$array = $this->_conn->comm("/tool/user-manager/customer/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return array();
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @param
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function add_customer($param) {
+		$this->_conn->comm("/tool/user-manager/customer/add", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @param
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function set_customer($param) {
+		$this->_conn->comm("/tool/user-manager/customer/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @attr
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function detail_customer($param) {
+		$array = $this->_conn->comm("/tool/user-manager/customer/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return array();
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @param
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function delete_customer($param) {
+		$this->_conn->comm("/tool/user-manager/customer/remove", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @param
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function enable_customer($param) {
+		$this->_conn->comm("/tool/user-manager/customer/enable", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @param
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function disable_customer($param) {
+		$this->_conn->comm("/tool/user-manager/customer/disable", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @attr
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function get_all_user() {
+		$array = $this->_conn->comm("/tool/user-manager/user/getall");
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return array();
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @param
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function add_user($param) {
+		$this->_conn->comm("/tool/user-manager/user/add", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @param
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function set_user($param) {
+		$this->_conn->comm("/tool/user-manager/user/set", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @attr
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function detail_user($param) {
+		$array = $this->_conn->comm("/tool/user-manager/user/print", $param);
+		$this->_conn->disconnect();
+		if(0 < count($array))
+			return $array;
+		else
+			return array();
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @param
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function delete_user($param) {
+		$this->_conn->comm("/tool/user-manager/user/remove", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @param
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function enable_user($param) {
+		$this->_conn->comm("/tool/user-manager/user/enable", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
+	}
+	
+	/**
+	 * This method is used to display all hotspot
+	 * @param
+	 *	URL: -
+	 *
+	 * @return type array
+	 */
+	public function disable_user($param) {
+		$this->_conn->comm("/tool/user-manager/user/disable", $param);
+		$this->_conn->disconnect();
+		return array('success'=>1);
+	}	
+}
