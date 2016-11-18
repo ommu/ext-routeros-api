@@ -13,6 +13,9 @@ defined('MIKROTIK_PATH') or define('MIKROTIK_PATH',dirname(__FILE__).DIRECTORY_S
 
 require_once MIKROTIK_PATH . 'routeros_api.class.php';
 
+//load child class tool
+require_once MIKROTIK_PATH . 'tool/OTool.php';
+
 class ORouterosAPI extends RouterosAPI
 {
 	private $_obj;
@@ -51,5 +54,13 @@ class ORouterosAPI extends RouterosAPI
 		} else 
 			return array('success'=>0);
 	}
+	
+	/**
+	 * This metod used call class OApi_Tool
+	 * @return OApi_Tool
+	 */
+	public function tool() {
+		return new OTool($this->talker(), $this);
+	}	
 	
 }
