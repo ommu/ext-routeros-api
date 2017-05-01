@@ -12,7 +12,7 @@
  * @copyright Copyright (c) 2016 Ommu Platform (opensource.ommu.co)
  * @created date 26 May 2016, 15:15 WIB
  * @link http://company.ommu.co
- * @contect (+62)856-299-4114
+ * @contact (+62)856-299-4114
  */
  
 defined('TOOL_PATH') or define('TOOL_PATH',dirname(__FILE__).DIRECTORY_SEPARATOR);
